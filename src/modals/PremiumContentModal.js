@@ -1,11 +1,13 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
+import {withNavigation} from 'react-navigation';
 import DefaultFlatButton from '../buttons/DefaultFlatButton';
 
 const username = '@blackkeys';
 const amount = '$0.50';
 
-const PremiumContentModal = () => {
+const PremiumContentModal = props => {
+    const {navigation} = props;
     return (
         <View style={styles.modal}>
             <Text style={styles.heading}>Premium Content</Text>
@@ -17,7 +19,10 @@ const PremiumContentModal = () => {
             </Text>
 
             <View style={styles.buttonContainer}>
-                <DefaultFlatButton title="Access" />
+                <DefaultFlatButton
+                    title="Access"
+                    onPress={() => navigation.navigate('PaymentMethod')}
+                />
             </View>
 
             <Text style={styles.contentText}>
@@ -60,4 +65,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default PremiumContentModal;
+export default withNavigation(PremiumContentModal);

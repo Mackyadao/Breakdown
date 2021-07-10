@@ -18,6 +18,8 @@ import SearchPage from '../screens/SearchPage';
 import WhatsTrending from '../screens/WhatsTrending';
 import MovieDetailsPage from '../screens/MovieDetailsPage';
 import MovieDetailsTrailer from '../screens/MovieDetailsTrailer';
+import PaymentMethod from '../screens/PaymentMethod';
+import PayWithCard from '../screens/PayWithCard';
 
 const stackNavigatorOptions = {
     headerShown: false,
@@ -43,6 +45,8 @@ const AppNavigator = createStackNavigator(
         WhatsTrending: {screen: WhatsTrending},
         MovieDetailsPage: {screen: MovieDetailsPage},
         MovieDetailsTrailer: {screen: MovieDetailsTrailer},
+        PaymentMethod: {screen: PaymentMethod},
+        PayWithCard: {screen: PayWithCard},
     },
     {
         defaultNavigationOptions: stackNavigatorOptions,
