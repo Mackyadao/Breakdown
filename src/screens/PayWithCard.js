@@ -1,51 +1,119 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, TextInput, Image, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, Alert, StyleSheet} from 'react-native';
 import CardView from 'react-native-cardview';
-import axios from 'axios';
-// import {Stripe} from 'stripe';
+import {CardField, useConfirmPayment} from '@stripe/stripe-react-native';
 
 import colors from '../constants/colors';
+import urls from '../constants/urls';
+import {hasErrorField, hasEmptyField, validateField} from '../utils/formHelper';
 import DefaultFlatButton from '../buttons/DefaultFlatButton';
+import FormTextInput from '../components/forms/FormTextInput';
+import FormInputErrorText from '../components/forms/FormInputErrorText';
+
+const API_URL = urls.apiUrl;
 
 const PayWithCard = props => {
     const {navigation} = props;
-    const [publishableKey, setPublishableKey] = useState('');
-    const [stripe, setStripe] = useState(null);
-    const [clientSecret, setClientSecret] = useState('');
     const cardElevation = 4;
     const cardMaxElevation = 2;
     const cornerRadius = 5;
-    const amount = 0.5;
+    const amount = 0.5 * 100;
 
-    // useEffect(() => {
-    //     fetchPublishableKey();
-    //     setStripe(new Stripe(publishableKey));
-    // }, []);
+    const formFieldsInitState = {
+        email: '',
+        name: '',
+    };
 
-    // fetchPublishableKey = async () => {
-    //     const res = await axios.get(
-    //         'https://breakdown.eleyjambaro.website/api/stripe/config',
-    //     );
+    const [formValues, setFormValues] = useState(formFieldsInitState);
+    const [errors, setErrors] = useState(formFieldsInitState);
+    const [isCardDetailsCompleted, setIsCardDetailsCompleted] = useState(false);
+    const [isFormValuesCompleted, setIsFormValuesCompleted] = useState(false);
+    const {confirmPayment, loading} = useConfirmPayment();
 
-    //     setPublishableKey(res.data.publishableKey);
-    // };
+    const disabledSubmitButton = () => {
+        if (isCardDetailsCompleted && isFormValuesCompleted) {
+            return false;
+        } else {
+            return true;
+        }
+    };
 
-    // createPaymentIntent = async () => {
-    //     const res = await axios.post(
-    //         'https://breakdown.eleyjambaro.website/api/stripe/create-payment-intent',
-    //         {amount},
-    //     );
+    const handleChangeText = (fieldValue, fieldName) => {
+        setFormValues(values => {
+            let updatedFormValues = {...values, [fieldName]: fieldValue};
+            let fieldErrors = {...errors};
 
-    //     setClientSecret(res.data.client_secret);
-    // };
+            let validatedFieldError = validateField(
+                fieldName,
+                fieldValue,
+                values,
+            );
 
-    // submitPayment = async () => {
-    //     const result = stripe.confirmCardPayment(clientSecret);
-    //     const paymentIntent = result.paymentIntent;
-    // };
+            fieldErrors = {...fieldErrors, ...validatedFieldError};
+
+            // update errors
+            setErrors(() => fieldErrors);
+
+            // check if there's an error and empty field
+            if (
+                !hasEmptyField(updatedFormValues) &&
+                !hasErrorField(fieldErrors)
+            ) {
+                setIsFormValuesCompleted(true);
+            } else {
+                setIsFormValuesCompleted(false);
+            }
+
+            return updatedFormValues;
+        });
+    };
+
+    const handlePayPress = async () => {
+        // recheck for error and empty field
+        if (!hasEmptyField(formValues) && !hasErrorField(errors)) {
+            /**
+             * TODO:
+             * Show payment confirmation modal before proceeding the payment
+             */
+            proceedPayment();
+        }
+    };
+
+    const proceedPayment = async () => {
+        // create payment intent
+        const response = await fetch(
+            `${API_URL}/api/stripe/create-payment-intent`,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    paymentMethodType: 'card',
+                    currency: 'usd',
+                    amount,
+                }),
+            },
+        );
+
+        const {client_secret: ClientSecret} = await response.json();
+
+        // confirm payment
+        const {error, paymentIntent} = await confirmPayment(ClientSecret, {
+            type: 'Card',
+            billingDetails: formValues,
+        });
+
+        if (error) {
+            Alert.alert(`Error code: ${error.code}`, error.message);
+        } else if (paymentIntent) {
+            Alert.alert('Success', 'Payment successful!');
+            navigation.navigate('LiveViewPaid', {premiumContentAccess: true});
+        }
+    };
 
     return (
-        <View style={styles.centeredView}>
+        <View style={[styles.screen, styles.centeredView]}>
             <View style={styles.paymentForm}>
                 <Text style={styles.formHeading}>Pay with card</Text>
 
@@ -56,12 +124,19 @@ const PayWithCard = props => {
                     cardElevation={cardElevation}
                     cardMaxElevation={cardMaxElevation}
                     cornerRadius={cornerRadius}>
-                    <TextInput
+                    <FormTextInput
+                        name="email"
+                        value={formValues.email}
+                        onChangeText={handleChangeText}
                         style={styles.formInput}
                         keyboardType="email-address"
                         autoCapitalize="none"
                     />
                 </CardView>
+
+                <FormInputErrorText
+                    text={errors['email'] && `* ${errors['email']}`}
+                />
 
                 <Text style={styles.label}>Card information</Text>
 
@@ -70,80 +145,28 @@ const PayWithCard = props => {
                     cardElevation={cardElevation}
                     cardMaxElevation={cardMaxElevation}
                     cornerRadius={cornerRadius}>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            justifyContet: 'center',
-                            alignItems: 'center',
-                            borderBottomWidth: 1,
+                    <CardField
+                        postalCodeEnabled={true}
+                        placeholder={{
+                            number: '4242 4242 4242 4242',
+                        }}
+                        cardStyle={{
+                            backgroundColor: colors.light,
+                            textColor: colors.dark,
+                            borderWidth: 1,
                             borderColor: colors.neutralLighten4,
-                        }}>
-                        <TextInput
-                            style={[
-                                styles.formInput,
-                                {
-                                    flex: 1,
-                                },
-                            ]}
-                            keyboardType="number-pad"
-                            placeholder="1234 1234 1234 1234"
-                        />
-
-                        <View style={styles.cardIconsContainer}>
-                            <Image
-                                style={styles.cardIconsItem}
-                                source={require('../images/CardFormVisa2.png')}
-                            />
-                            <Image
-                                style={styles.cardIconsItem}
-                                source={require('../images/CardFormMastercard1.png')}
-                            />
-                            <Image
-                                style={styles.cardIconsItem}
-                                source={require('../images/CardFormAmericanExpress2.png')}
-                            />
-                            <Image
-                                style={[
-                                    styles.cardIconsItem,
-                                    {resizeMode: 'cover'},
-                                ]}
-                                source={require('../images/CardFormDiscover1.png')}
-                            />
-                        </View>
-                    </View>
-
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            borderTopWidth: 1,
-                            borderColor: colors.neutralLighten4,
-                        }}>
-                        <TextInput
-                            style={[
-                                styles.formInput,
-                                {
-                                    flex: 1,
-                                    borderRightWidth: 2,
-                                    marginRight: -1,
-                                },
-                            ]}
-                            keyboardType="number-pad"
-                            placeholder="MM / YY"
-                        />
-
-                        <TextInput
-                            style={[
-                                styles.formInput,
-                                {
-                                    flex: 1,
-                                    borderLeftWidth: 2,
-                                    marginLeft: -1,
-                                },
-                            ]}
-                            keyboardType="number-pad"
-                            placeholder="CVV/CVC Code"
-                        />
-                    </View>
+                        }}
+                        style={[
+                            styles.formInput,
+                            {
+                                width: '100%',
+                                height: 50,
+                            },
+                        ]}
+                        onCardChange={cardDetails => {
+                            setIsCardDetailsCompleted(cardDetails.complete);
+                        }}
+                    />
                 </CardView>
 
                 <Text style={styles.label}>Name on card</Text>
@@ -153,26 +176,25 @@ const PayWithCard = props => {
                     cardElevation={cardElevation}
                     cardMaxElevation={cardMaxElevation}
                     cornerRadius={cornerRadius}>
-                    <TextInput
+                    <FormTextInput
+                        name="name"
+                        value={formValues.name}
+                        onChangeText={handleChangeText}
                         style={styles.formInput}
                         autoCapitalize="words"
                     />
                 </CardView>
 
-                <Text style={styles.label}>Country or region</Text>
-
-                <CardView
-                    style={styles.cardView}
-                    cardElevation={cardElevation}
-                    cardMaxElevation={cardMaxElevation}
-                    cornerRadius={cornerRadius}>
-                    <TextInput style={styles.formInput} />
-                </CardView>
+                <FormInputErrorText
+                    text={errors['name'] && `* ${errors['name']}`}
+                />
 
                 <DefaultFlatButton
-                    title={`Pay $0.50`}
-                    onPress={() => navigation.navigate('LiveViewPaid')}
-                    style={{marginTop: 30}}
+                    title={`Pay $${amount / 100}`}
+                    onPress={() => handlePayPress()}
+                    style={{marginTop: 34}}
+                    isLoading={loading}
+                    disabled={loading || disabledSubmitButton()}
                 />
             </View>
         </View>
@@ -180,6 +202,9 @@ const PayWithCard = props => {
 };
 
 const styles = StyleSheet.create({
+    screen: {
+        backgroundColor: colors.light,
+    },
     centeredView: {
         flex: 1,
         justifyContent: 'center',
@@ -195,24 +220,15 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
     },
     formInput: {
+        borderWidth: 1,
         borderColor: colors.neutralLighten4,
         paddingHorizontal: 10,
     },
     cardView: {
         marginVertical: 4,
     },
-    cardIconsContainer: {
-        flexDirection: 'row',
-        marginHorizontal: 6,
-    },
-    cardIconsItem: {
-        height: 17,
-        width: 30,
-        marginHorizontal: 3,
-        resizeMode: 'contain',
-    },
     label: {
-        marginTop: 10,
+        marginTop: 16,
         fontSize: 16,
         fontWeight: '400',
         color: colors.neutral,

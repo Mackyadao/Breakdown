@@ -7,7 +7,7 @@ const username = '@blackkeys';
 const amount = '$0.50';
 
 const PremiumContentModal = props => {
-    const {navigation} = props;
+    const {navigation, toggleModal} = props;
     return (
         <View style={styles.modal}>
             <Text style={styles.heading}>Premium Content</Text>
@@ -21,7 +21,10 @@ const PremiumContentModal = props => {
             <View style={styles.buttonContainer}>
                 <DefaultFlatButton
                     title="Access"
-                    onPress={() => navigation.navigate('PaymentMethod')}
+                    onPress={() => {
+                        navigation.navigate('PaymentMethod');
+                        toggleModal();
+                    }}
                 />
             </View>
 

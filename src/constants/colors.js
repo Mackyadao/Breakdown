@@ -10,7 +10,7 @@ export const colors = {
     neutralLighten1: 'rgb(153, 153, 153)',
     neutralLighten2: 'rgb(179, 179, 179)',
     neutralLighten3: 'rgb(204, 204, 204)',
-    neutralLighten4: 'rgb(229, 229, 229)',
+    neutralLighten4: '#DFDFDF',
     neutralLighten5: 'rgb(245, 245, 245)',
     danger: 'rgb(236, 31, 2)',
     warning: 'rgb(255, 198, 80)',

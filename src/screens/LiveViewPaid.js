@@ -5,7 +5,6 @@ import {
     Modal,
     Image,
     StyleSheet,
-    Dimensions,
     TouchableOpacity,
 } from 'react-native';
 import colors from '../constants/colors';
@@ -15,11 +14,31 @@ import PremiumContentModal from '../modals/PremiumContentModal';
 export default class LiveViewPaid extends React.Component {
     state = {
         search: '',
-        modalVisible: false,
+        premiumContentModalVisible: false,
     };
 
     updateSearch = search => {
         this.setState({search});
+    };
+
+    togglePremiumContentModal = () => {
+        this.setState({
+            premiumContentModalVisible: !this.state.premiumContentModalVisible,
+        });
+    };
+
+    handlePlayPress = () => {
+        const {navigation} = this.props;
+
+        if (navigation.getParam('premiumContentAccess', false)) {
+            /**
+             * TODO:
+             * Grant user to play the video with premium access
+             */
+            return;
+        } else {
+            this.togglePremiumContentModal();
+        }
     };
 
     render() {
@@ -28,12 +47,17 @@ export default class LiveViewPaid extends React.Component {
                 <Modal
                     animationType="slide"
                     transparent={true}
-                    visible={this.state.modalVisible}
+                    visible={this.state.premiumContentModalVisible}
                     onRequestClose={() => {
-                        this.setState({modalVisible: !this.state.modalVisible});
+                        this.setState({
+                            premiumContentModalVisible:
+                                !this.state.premiumContentModalVisible,
+                        });
                     }}>
                     <View style={[styles.centeredView]}>
-                        <PremiumContentModal />
+                        <PremiumContentModal
+                            toggleModal={this.togglePremiumContentModal}
+                        />
                     </View>
                 </Modal>
 
@@ -82,11 +106,7 @@ export default class LiveViewPaid extends React.Component {
                         </View>
                     </View>
                     <TouchableOpacity
-                        onPress={() => {
-                            this.setState({
-                                modalVisible: !this.state.modalVisible,
-                            });
-                        }}
+                        onPress={this.handlePlayPress}
                         style={{justifyContent: 'center', height: '100%'}}>
                         <Image
                             source={require('../images/play1.png')}
