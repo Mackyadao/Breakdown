@@ -1,40 +1,34 @@
+import React, {useState, useEffect} from 'react';
+import {StripeProvider} from '@stripe/stripe-react-native';
 
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import AppNavigator from './src/navigations/Navigator'
-import {AppLoading} from 'expo'
-import { isRequired } from 'react-native/Libraries/DeprecatedPropTypes/DeprecatedColorPropType';
+import AppNavigator from './src/navigations/Navigator';
+import urls from './src/constants/urls';
 
-export default class App extends React.Component {
-  
-  state = {
-    isFontLoaded:false
-  }
+const API_URL = urls.apiUrl;
 
-  async componentDidMount(){
-    await Font.loadAsync({
-      'SemiBold' : require('./src/fonts/Montserrat-SemiBold.ttf'),
-      'Medium' : require('./src/fonts/Montserrat-Medium.ttf'),
-      'Regular' : require('./src/fonts/Montserrat-Regular.ttf'),
-      'Pattaya' : require('./src/fonts/Pattaya-Regular.ttf')
-    });
-    this.setState({isFontLoaded:true})
-  }
+const App = () => {
+    const [publishableKey, setPublishableKey] = useState('');
 
-  render(){
+    const fetchPublishableKey = async () => {
+        const response = await fetch(`${API_URL}/api/stripe/config`);
+        const {publishableKey: fetchedPubKey} = await response.json();
+
+        setPublishableKey(fetchedPubKey);
+    };
+
+    useEffect(() => {
+        fetchPublishableKey();
+    }, []);
+
     return (
-      <AppNavigator/>
+        <StripeProvider
+            publishableKey={publishableKey}
+            // urlScheme="your-url-scheme" // required for 3D Secure and bank redirects
+            // merchantIdentifier="merchant.com.breakdown" // required for Apple Pay
+        >
+            <AppNavigator />
+        </StripeProvider>
     );
-  }
- 
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
