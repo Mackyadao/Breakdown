@@ -8,7 +8,7 @@ export const colors = {
     dark: '#000000',
     neutral: 'rgb(128, 128, 128)',
     neutralLighten1: 'rgb(153, 153, 153)',
-    neutralLighten2: 'rgb(179, 179, 179)',
+    neutralLighten2: '#848080',
     neutralLighten3: '#C4C4C4',
     neutralLighten4: '#DFDFDF',
     neutralLighten5: 'rgb(245, 245, 245)',

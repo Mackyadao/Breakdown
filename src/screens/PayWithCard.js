@@ -6,7 +6,7 @@ import {CardField, useConfirmPayment} from '@stripe/stripe-react-native';
 import colors from '../constants/colors';
 import urls from '../constants/urls';
 import {hasErrorField, hasEmptyField, validateField} from '../utils/formHelper';
-import DefaultFlatButton from '../buttons/DefaultFlatButton';
+import DefaultFlatButton from '../components/buttons/DefaultFlatButton';
 import FormTextInput from '../components/forms/FormTextInput';
 import FormInputErrorText from '../components/forms/FormInputErrorText';
 

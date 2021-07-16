@@ -8,7 +8,7 @@ import {
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import colors from '../constants/colors';
+import colors from '../../constants/colors';
 
 const DefaultPillFlatButton = props => {
     const {

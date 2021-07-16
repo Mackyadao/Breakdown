@@ -8,9 +8,9 @@ import {
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import colors from '../constants/colors';
+import colors from '../../constants/colors';
 
-const DefaultFlatButton = props => {
+const PrimaryFlatButton = props => {
     const {
         style,
         title,
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
         borderColor: colors.dark,
         paddingVertical: 9,
         paddingHorizontal: 9,
-        backgroundColor: colors.default,
+        backgroundColor: colors.primary,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -129,4 +129,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default DefaultFlatButton;
+export default PrimaryFlatButton;

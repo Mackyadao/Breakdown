@@ -8,9 +8,9 @@ import {
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import colors from '../constants/colors';
+import colors from '../../constants/colors';
 
-const PrimaryPillFlatButton = props => {
+const DefaultFlatButton = props => {
     const {
         style,
         title,
@@ -86,19 +86,19 @@ const PrimaryPillFlatButton = props => {
 
 const styles = StyleSheet.create({
     button: {
-        borderWidth: 1,
-        borderRadius: 60,
+        borderWidth: 2,
+        borderRadius: 5,
         borderColor: colors.dark,
-        paddingHorizontal: 19,
-        paddingVertical: 19,
-        backgroundColor: colors.primary,
+        paddingVertical: 9,
+        paddingHorizontal: 9,
+        backgroundColor: colors.default,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
     },
     buttonText: {
-        color: colors.secondary,
-        fontWeight: '700',
+        color: colors.light,
+        fontWeight: 'bold',
         textTransform: 'uppercase',
         fontSize: 16,
         textAlign: 'center',
@@ -129,4 +129,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default PrimaryPillFlatButton;
+export default DefaultFlatButton;

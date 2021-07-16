@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {withNavigation} from 'react-navigation';
-import DefaultFlatButton from '../buttons/DefaultFlatButton';
+import DefaultFlatButton from '../components/buttons/DefaultFlatButton';
 
 const username = '@blackkeys';
 const amount = '$0.50';

@@ -3,7 +3,7 @@ import {View, Text, Image, Pressable, StyleSheet} from 'react-native';
 
 import colors from '../constants/colors';
 import FormPillTextInput from '../components/forms/FormPillTextInput';
-import PrimaryPillFlatButton from '../buttons/PrimaryPillFlatButton';
+import PrimaryPillFlatButton from '../components/buttons/PrimaryPillFlatButton';
 
 const Login = props => {
     const {navigation} = props;
