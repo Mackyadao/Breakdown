@@ -12,6 +12,7 @@ import TitledHeader from '../components/headers/TitledHeader';
 import HeaderTitleText from '../components/headers/HeaderTitleText';
 import HeaderTitleIcon from '../components/headers/HeaderTitleIcon';
 import LiveCentralTopNavbar from '../components/navbars/LiveCentralTopNavbar';
+import LiveDashboard from '../components/liveCentral/LiveDashboard';
 
 const LiveCentral = props => {
     const {navigation} = props;
@@ -26,146 +27,10 @@ const LiveCentral = props => {
 
                 <LiveCentralTopNavbar />
             </View>
-            <ScrollView style={{width: '100%', backgroundColor: '#ddd'}}>
-                <View style={{backgroundColor: '#fff', marginBottom: 5}}>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            width: '100%',
-                            flexWrap: 'wrap',
-                            marginTop: 10,
-                        }}>
-                        <Text
-                            style={{
-                                fontFamily: 'Anton-Regular',
-                                borderBottomRightRadius: 10,
-                                borderTopRightRadius: 10,
-                                backgroundColor: '#fff',
-                                paddingLeft: 10,
-                                paddingRight: 10,
-                                color: '#fff',
-                                backgroundColor: '#000',
-                                fontSize: 24,
-                                borderWidth: 3,
-                                width: '55%',
-                            }}>
-                            Music
-                        </Text>
-                        <Image
-                            source={require('../images/filter.png')}
-                            style={{
-                                width: 30,
-                                height: 30,
-                                position: 'absolute',
-                                right: 0,
-                                top: '20%',
-                            }}
-                        />
-                    </View>
 
-                    {/* TODO: Use the MainBottomNavbar component here */}
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            flexWrap: 'wrap',
-                            alignSelf: 'center',
-                        }}>
-                        <TouchableOpacity
-                            style={{
-                                flex: 1,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                padding: 10,
-                            }}
-                            onPress={() => navigation.navigate('LiveView')}>
-                            <Image
-                                source={require('../images/sunnysyd.png')}
-                                style={{width: 171, height: 209}}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={{
-                                flex: 1,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                padding: 10,
-                            }}>
-                            <Image
-                                source={require('../images/guitarhero.png')}
-                                style={{width: 171, height: 209}}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                </View>
+            <LiveDashboard />
 
-                <View style={{backgroundColor: '#fff', marginBottom: 5}}>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            width: '100%',
-                            flexWrap: 'wrap',
-                            marginTop: 10,
-                        }}>
-                        <Text
-                            style={{
-                                fontFamily: 'Anton-Regular',
-                                borderBottomRightRadius: 10,
-                                borderTopRightRadius: 10,
-                                backgroundColor: '#fff',
-                                paddingLeft: 10,
-                                paddingRight: 10,
-                                color: '#fff',
-                                backgroundColor: '#000',
-                                fontSize: 24,
-                                borderWidth: 3,
-                                width: '55%',
-                            }}>
-                            Photography
-                        </Text>
-                        <Image
-                            source={require('../images/filter.png')}
-                            style={{
-                                width: 30,
-                                height: 30,
-                                position: 'absolute',
-                                right: 0,
-                                top: '20%',
-                            }}
-                        />
-                    </View>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            flexWrap: 'wrap',
-                            alignSelf: 'center',
-                        }}>
-                        <TouchableOpacity
-                            style={{
-                                flex: 1,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                padding: 10,
-                            }}>
-                            <Image
-                                source={require('../images/snapshot.png')}
-                                style={{width: 171, height: 209}}
-                            />
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            style={{
-                                flex: 1,
-                                justifyContent: 'center',
-                                alignItems: 'center',
-                                padding: 10,
-                            }}>
-                            <Image
-                                source={require('../images/aphotopro.png')}
-                                style={{width: 171, height: 209}}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                </View>
-            </ScrollView>
+            {/* TODO: Use the MainBottomNavbar component here */}
             <View
                 style={{
                     width: '100%',
