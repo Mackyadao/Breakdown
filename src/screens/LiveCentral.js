@@ -11,6 +11,7 @@ import {
 import TitledHeader from '../components/headers/TitledHeader';
 import HeaderTitleText from '../components/headers/HeaderTitleText';
 import HeaderTitleIcon from '../components/headers/HeaderTitleIcon';
+import LiveCentralTopNavbar from '../components/navbars/LiveCentralTopNavbar';
 
 const LiveCentral = props => {
     const {navigation} = props;
@@ -23,64 +24,7 @@ const LiveCentral = props => {
                     <HeaderTitleIcon source={require('../images/live.png')} />
                 </TitledHeader>
 
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        width: '100%',
-                        flexWrap: 'wrap',
-                        alignSelf: 'center',
-                        borderTopWidth: 3,
-                        borderBottomWidth: 3,
-                        borderColor: '#ddd',
-                        padding: 20,
-                    }}>
-                    <View style={{flex: 1, height: '100%'}}>
-                        <Text
-                            style={{
-                                fontFamily: 'Anton-Regular',
-                                borderTopLeftRadius: 10,
-                                borderBottomLeftRadius: 10,
-                                borderBottomRightRadius: 10,
-                                borderTopRightRadius: 10,
-                                backgroundColor: '#DD3606',
-                                paddingLeft: 10,
-                                paddingRight: 10,
-                                paddingTop: 5,
-                                paddingBottom: 5,
-                                color: '#ffffff',
-                                textAlign: 'center',
-                                marginLeft: 20,
-                                marginRight: 20,
-                                fontSize: 20,
-                                borderWidth: 3,
-                            }}>
-                            Who's Live?
-                        </Text>
-                    </View>
-                    <View style={{flex: 1, height: '100%'}}>
-                        <Text
-                            onPress={() => navigation.navigate('Marketplace')}
-                            style={{
-                                fontFamily: 'Anton-Regular',
-                                borderTopLeftRadius: 10,
-                                borderBottomLeftRadius: 10,
-                                borderBottomRightRadius: 10,
-                                borderTopRightRadius: 10,
-                                backgroundColor: '#fff',
-                                paddingLeft: 10,
-                                paddingRight: 10,
-                                paddingTop: 5,
-                                paddingBottom: 5,
-                                color: '#333',
-                                textAlign: 'center',
-                                marginHorizontal: 20,
-                                fontSize: 20,
-                                borderWidth: 3,
-                            }}>
-                            Marketplace
-                        </Text>
-                    </View>
-                </View>
+                <LiveCentralTopNavbar />
             </View>
             <ScrollView style={{width: '100%', backgroundColor: '#ddd'}}>
                 <View style={{backgroundColor: '#fff', marginBottom: 5}}>
