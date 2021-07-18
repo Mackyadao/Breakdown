@@ -20,6 +20,7 @@ import MovieDetailsPage from '../screens/MovieDetailsPage';
 import MovieDetailsTrailer from '../screens/MovieDetailsTrailer';
 import PaymentMethod from '../screens/PaymentMethod';
 import PayWithCard from '../screens/PayWithCard';
+import Signup from '../screens/Signup';
 
 const stackNavigatorOptions = {
     headerShown: false,
@@ -28,6 +29,7 @@ const stackNavigatorOptions = {
 const AppNavigator = createStackNavigator(
     {
         Login: {screen: Login},
+        Signup: {screen: Signup},
         Register: {screen: Register},
         Home: {screen: Home},
         ChooseMedium: {screen: ChooseMedium},

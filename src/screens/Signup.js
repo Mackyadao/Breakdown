@@ -6,11 +6,12 @@ import {hasEmptyField} from '../utils/formHelper';
 import FormPillTextInput from '../components/forms/FormPillTextInput';
 import PrimaryPillFlatButton from '../components/buttons/PrimaryPillFlatButton';
 
-const Login = props => {
+const Signup = props => {
     const {navigation} = props;
     const formFieldsInitState = {
         mobileNumberUsernameOrEmail: '',
         password: '',
+        confirmPassword: '',
     };
 
     const [formValues, setFormValues] = useState(formFieldsInitState);
@@ -23,9 +24,9 @@ const Login = props => {
 
     const handleSubmit = () => {
         if (!hasEmptyField(formValues)) {
-            navigation.navigate('Home');
+            navigation.navigate('Register');
         } else {
-            navigation.navigate('Signup');
+            navigation.navigate('Login');
         }
     };
 
@@ -67,9 +68,20 @@ const Login = props => {
                     </Pressable>
                 </View>
 
+                <FormPillTextInput
+                    style={[styles.pillTextInput, styles.pillTextInputSmall]}
+                    name="confirmPassword"
+                    value={formValues.confirmPassword}
+                    onChangeText={handleChangeText}
+                    placeholder="Confirm Password"
+                    autoCapitalize="none"
+                    textContentType="password"
+                    secureTextEntry={true}
+                />
+
                 <PrimaryPillFlatButton
                     style={[styles.button, styles.buttonSmall]}
-                    title="Login/Sign up"
+                    title="Signup/Sign up"
                     onPress={handleSubmit}
                 />
             </View>
@@ -128,4 +140,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default Login;
+export default Signup;
