@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     buttonText: {
-        color: colors.secondary,
+        color: colors.light,
         fontWeight: '700',
         textTransform: 'uppercase',
         fontSize: 16,
