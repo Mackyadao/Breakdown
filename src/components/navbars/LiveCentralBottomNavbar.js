@@ -6,13 +6,7 @@ const LiveCentralBottomNavbar = props => {
     const {navigation} = props;
 
     return (
-        <View
-            style={{
-                width: '100%',
-                height: 43,
-                flexWrap: 'wrap',
-                flexDirection: 'row',
-            }}>
+        <View style={styles.container}>
             <TouchableOpacity
                 style={styles.navbarTouchOpa}
                 onPress={() => navigation.navigate('Home')}>
@@ -21,12 +15,14 @@ const LiveCentralBottomNavbar = props => {
                     style={styles.navbarIcon}
                 />
             </TouchableOpacity>
+
             <TouchableOpacity style={styles.navbarTouchOpa}>
                 <Image
                     source={require('../../assets/icons/search-3x.png')}
                     style={styles.navbarIcon}
                 />
             </TouchableOpacity>
+
             <TouchableOpacity
                 style={styles.navbarTouchOpa}
                 onPress={() => navigation.navigate('NotificationPage')}>
@@ -35,6 +31,7 @@ const LiveCentralBottomNavbar = props => {
                     style={styles.navbarIcon}
                 />
             </TouchableOpacity>
+
             <TouchableOpacity style={styles.navbarTouchOpa}>
                 <Image
                     source={require('../../assets/icons/user-options-3x.png')}
@@ -46,6 +43,12 @@ const LiveCentralBottomNavbar = props => {
 };
 
 const styles = StyleSheet.create({
+    container: {
+        width: '100%',
+        height: 43,
+        flexWrap: 'wrap',
+        flexDirection: 'row',
+    },
     navbarTouchOpa: {
         flex: 1,
         justifyContent: 'center',
