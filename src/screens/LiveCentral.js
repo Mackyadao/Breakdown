@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 
+import colors from '../constants/colors';
 import TitledHeader from '../components/headers/TitledHeader';
 import HeaderTitleText from '../components/headers/HeaderTitleText';
 import HeaderTitleIcon from '../components/headers/HeaderTitleIcon';
@@ -29,12 +30,11 @@ const LiveCentral = () => {
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: '#FFF',
+        backgroundColor: colors.light,
         height: '100%',
     },
     headerContainer: {
         width: '100%',
-        paddingTop: 5,
     },
 });
 
