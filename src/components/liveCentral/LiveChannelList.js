@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         fontFamily: 'Oswald-Regular',
         color: colors.light,
         fontSize: 24,
-        marginTop: -6,
+        marginTop: -7,
     },
     filterIcon: {
         width: 23,
