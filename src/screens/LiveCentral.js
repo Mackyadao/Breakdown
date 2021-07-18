@@ -25,7 +25,7 @@ const LiveCentral = props => {
                     <HeaderTitleIcon source={require('../images/live.png')} />
                 </TitledHeader>
 
-                <LiveCentralTopNavbar />
+                <LiveCentralTopNavbar activeScreen="LiveCentral" />
             </View>
 
             <LiveDashboard />

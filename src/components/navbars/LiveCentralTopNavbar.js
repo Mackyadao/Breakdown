@@ -5,14 +5,19 @@ import {withNavigation} from 'react-navigation';
 import TertiaryFlatButton from '../buttons/TertiaryFlatButton';
 
 const LiveCentralTopNavbar = props => {
-    const {navigation} = props;
+    const {navigation, activeScreen} = props;
 
     return (
         <View style={styles.container}>
-            <TertiaryFlatButton title="Who's Live?" />
+            <TertiaryFlatButton
+                title="Who's Live?"
+                inverted={activeScreen !== 'LiveCentral' && true}
+                onPress={() => navigation.navigate('LiveCentral')}
+            />
+
             <TertiaryFlatButton
                 title="Marketplace"
-                inverted
+                inverted={activeScreen !== 'Marketplace' && true}
                 onPress={() => navigation.navigate('Marketplace')}
             />
         </View>
