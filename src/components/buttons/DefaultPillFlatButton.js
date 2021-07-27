@@ -106,11 +106,11 @@ const styles = StyleSheet.create({
         textTransform: 'none',
     },
     buttonInverted: {
-        borderWidth: 2,
+        borderWidth: 1,
         paddingVertical: 8,
         paddingHorizontal: 8,
-        borderColor: colors.dark,
-        backgroundColor: 'transparent',
+        borderColor: colors.neutralLighten2,
+        backgroundColor: colors.light,
     },
     buttonTextInverted: {
         color: colors.dark,

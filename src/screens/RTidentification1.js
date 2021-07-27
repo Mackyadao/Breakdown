@@ -1,15 +1,8 @@
-import {co} from 'co';
 import React from 'react';
-import {
-    Text,
-    View,
-    Image,
-    TextInput,
-    Icon,
-    TouchableOpacity,
-} from 'react-native';
+import {Text, View, Image} from 'react-native';
 
 import colors from '../constants/colors';
+import DefaultPillFlatButton from '../components/buttons/DefaultPillFlatButton';
 
 export default class RTidentification1 extends React.Component {
     render() {
@@ -23,7 +16,6 @@ export default class RTidentification1 extends React.Component {
                         height: 42,
                         marginTop: 25,
                         marginLeft: 25,
-                        borderColor: '#000',
                         resizeMode: 'contain',
                     }}
                 />
@@ -31,7 +23,7 @@ export default class RTidentification1 extends React.Component {
                 <View
                     style={{
                         width: '80%',
-                        backgroundColor: colors.neutralLighten3,
+                        backgroundColor: colors.neutralLighten4,
                         alignSelf: 'center',
                         marginTop: 100,
                         padding: 20,
@@ -50,49 +42,24 @@ export default class RTidentification1 extends React.Component {
                         }}>
                         Are you a Creator{'\n'}of the arts?
                     </Text>
-                    <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                        <Text
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            flexWrap: 'wrap',
+                            justifyContent: 'space-evenly',
+                            marginTop: 20,
+                        }}>
+                        <DefaultPillFlatButton
+                            title="Yes"
+                            inverted
                             onPress={() => navigate('MakeItOfficial')}
-                            style={{
-                                borderTopLeftRadius: 30,
-                                borderBottomLeftRadius: 30,
-                                borderBottomRightRadius: 30,
-                                borderTopRightRadius: 30,
-                                borderWidth: 2,
-                                borderColor: '#aaa',
-                                marginTop: 15,
-                                flex: 1,
-                                backgroundColor: '#FFFFFF',
-                                padding: 15,
-                                fontSize: 18,
-                                marginHorizontal: 5,
-                                color: '#6C1717',
-                                textAlign: 'center',
-                                fontFamily: 'Montserrat-SemiBold',
-                            }}>
-                            Yes
-                        </Text>
-                        <Text
+                        />
+
+                        <DefaultPillFlatButton
+                            title="No"
+                            inverted
                             onPress={() => navigate('Home')}
-                            style={{
-                                borderTopLeftRadius: 30,
-                                borderBottomLeftRadius: 30,
-                                borderBottomRightRadius: 30,
-                                borderTopRightRadius: 30,
-                                borderWidth: 2,
-                                borderColor: '#aaa',
-                                marginTop: 15,
-                                flex: 1,
-                                backgroundColor: '#FFFFFF',
-                                padding: 15,
-                                fontSize: 18,
-                                marginHorizontal: 5,
-                                color: '#6C1717',
-                                textAlign: 'center',
-                                fontFamily: 'Montserrat-SemiBold',
-                            }}>
-                            No
-                        </Text>
+                        />
                     </View>
                 </View>
                 <View
@@ -110,9 +77,9 @@ export default class RTidentification1 extends React.Component {
                         borderBottomRightRadius: 30,
                     }}>
                     <Text style={{fontFamily: 'Roboto-Regular', fontSize: 18}}>
-                        Are you a Creator (aligned to the Film, TV, or Book
+                        Are you a Creator (affiliated with the Film, TV, or Book
                         industries) looking to build a stronger connection with
-                        your audience? This title is designated for you!
+                        your audience? If so, this status is reserved for you!
                     </Text>
                 </View>
             </View>
