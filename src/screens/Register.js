@@ -1,166 +1,159 @@
 import React from 'react';
-import {Text, View, Image, TextInput, Icon} from 'react-native';
+import {
+    Text,
+    View,
+    Image,
+    StyleSheet,
+    KeyboardAvoidingView,
+    Platform,
+} from 'react-native';
+
+import colors from '../constants/colors';
+import FormPillWithIconTextInput from '../components/forms/FormPillWithIconTextInput';
 import PrimaryPillFlatButton from '../components/buttons/PrimaryPillFlatButton';
 
-export default class Register extends React.Component {
-    render() {
-        const {navigate} = this.props.navigation;
-        return (
-            <View style={{backgroundColor: '#FFF', height: '100%'}}>
-                <Image
-                    source={require('../assets/logo/iconicMark/iconicMark-colored-3x.png')}
-                    style={{
-                        width: 42,
-                        height: 42,
-                        marginTop: 25,
-                        marginLeft: 25,
-                        borderColor: '#000',
-                        resizeMode: 'contain',
-                    }}
+const Register = props => {
+    const {navigation} = props;
+
+    return (
+        <View style={styles.container}>
+            <Image
+                source={require('../assets/logo/iconicMark/iconicMark-colored-3x.png')}
+                style={{
+                    width: 42,
+                    height: 42,
+                    marginTop: 25,
+                    marginLeft: 25,
+                    resizeMode: 'contain',
+                }}
+            />
+
+            <View style={styles.uploadPicture}>
+                <View style={styles.uploadPictureIcon}>
+                    <Image
+                        source={require('../images/Vector.png')}
+                        style={styles.userCircledIcon}
+                    />
+
+                    <Image
+                        source={require('../images/Ellipse69.png')}
+                        style={styles.plusIconContainer}
+                    />
+                    <Image
+                        source={require('../images/+.png')}
+                        style={styles.plusIcon}
+                    />
+                </View>
+
+                <Text style={styles.uploadPictureText}>Add your picture</Text>
+            </View>
+
+            <KeyboardAvoidingView
+                style={styles.registerForm}
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+                <Text style={styles.contentText}>
+                    Tell us a little more about yourself,{'\n'}
+                    so we can provide you with{'\n'}
+                    customized content.
+                </Text>
+
+                <FormPillWithIconTextInput
+                    containerStyle={styles.textInput}
+                    name="name"
+                    placeholder="Name"
+                    iconSource={require('../assets/icons/user-solid-3x.png')}
                 />
 
-                <View>
-                    <View
-                        style={{
-                            marginTop: 33,
-                            alignSelf: 'center',
-                            position: 'absolute',
-                        }}>
-                        <Image
-                            source={require('../images/Vector.png')}
-                            style={{width: 113, height: 113}}
-                        />
+                <FormPillWithIconTextInput
+                    containerStyle={styles.textInput}
+                    name="username"
+                    placeholder="Username"
+                    autoCapitalize="none"
+                    iconSource={require('../assets/icons/user-solid-3x.png')}
+                />
 
-                        <Image
-                            source={require('../images/Ellipse69.png')}
-                            style={{
-                                position: 'absolute',
-                                right: -5,
-                                bottom: -5,
-                            }}
-                        />
-                        <Image
-                            source={require('../images/+.png')}
-                            style={{position: 'absolute', right: 7, bottom: 7}}
-                        />
-                    </View>
-                    <View
-                        style={{
-                            position: 'absolute',
-                            alignSelf: 'center',
-                            top: 153,
-                        }}>
-                        <Text
-                            style={{
-                                fontFamily: 'SemiBold',
-                                fontSize: 16,
-                                alignSelf: 'center',
-                                fontWeight: 'bold',
-                            }}>
-                            Add your picture
-                        </Text>
+                <FormPillWithIconTextInput
+                    containerStyle={styles.textInput}
+                    name="birthday"
+                    placeholder="Birthday"
+                    autoCapitalize="none"
+                    iconSource={require('../assets/icons/calendar-solid-3x.png')}
+                />
 
-                        <TextInput
-                            style={{
-                                borderWidth: 2,
-                                borderColor: '#dddddd',
-                                borderTopLeftRadius: 20,
-                                borderBottomLeftRadius: 20,
-                                borderBottomRightRadius: 20,
-                                borderTopRightRadius: 20,
-                                marginTop: 15,
-                                paddingTop: 5,
-                                paddingBottom: 5,
-                                paddingLeft: 10,
-                                paddingRight: 10,
-                            }}
-                            placeholder="Name"
-                            keyboardType="default"
-                        />
+                <FormPillWithIconTextInput
+                    containerStyle={styles.textInput}
+                    name="mobileNumber"
+                    placeholder="Mobile number"
+                    keyboardType="number-pad"
+                    iconSource={require('../assets/icons/mobile-phone-solid-3x.png')}
+                />
 
-                        <TextInput
-                            style={{
-                                borderWidth: 2,
-                                borderColor: '#dddddd',
-                                borderTopLeftRadius: 20,
-                                borderBottomLeftRadius: 20,
-                                borderBottomRightRadius: 20,
-                                borderTopRightRadius: 20,
-                                marginTop: 15,
-                                paddingTop: 5,
-                                paddingBottom: 5,
-                                paddingLeft: 10,
-                                paddingRight: 10,
-                            }}
-                            placeholder="Username"
-                            keyboardType="default"
-                        />
+                <FormPillWithIconTextInput
+                    containerStyle={styles.textInput}
+                    name="email"
+                    placeholder="Email"
+                    keyboardType="email-address"
+                    iconSource={require('../assets/icons/email-solid-3x.png')}
+                />
 
-                        <TextInput
-                            style={{
-                                borderWidth: 2,
-                                borderColor: '#dddddd',
-                                borderTopLeftRadius: 20,
-                                borderBottomLeftRadius: 20,
-                                borderBottomRightRadius: 20,
-                                borderTopRightRadius: 20,
-                                marginTop: 15,
-                                paddingTop: 5,
-                                paddingBottom: 5,
-                                paddingLeft: 10,
-                                paddingRight: 10,
-                            }}
-                            placeholder="Birthday"
-                            keyboardType="default"
-                        />
+                <PrimaryPillFlatButton
+                    title="Done"
+                    onPress={() => navigation.navigate('ChooseMedium')}
+                    style={styles.button}
+                />
+            </KeyboardAvoidingView>
+        </View>
+    );
+};
 
-                        <TextInput
-                            style={{
-                                borderWidth: 2,
-                                borderColor: '#dddddd',
-                                borderTopLeftRadius: 20,
-                                borderBottomLeftRadius: 20,
-                                borderBottomRightRadius: 20,
-                                borderTopRightRadius: 20,
-                                marginTop: 15,
-                                paddingTop: 5,
-                                paddingBottom: 5,
-                                paddingLeft: 10,
-                                paddingRight: 10,
-                            }}
-                            placeholder="Mobile number"
-                            keyboardType="numeric"
-                        />
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: colors.light,
+        height: '100%',
+    },
+    uploadPictureIcon: {
+        alignSelf: 'center',
+    },
+    uploadPictureText: {
+        marginTop: 16,
+        fontSize: 16,
+        alignSelf: 'center',
+        fontWeight: 'bold',
+    },
+    userCircledIcon: {
+        width: 113,
+        height: 113,
+    },
+    plusIconContainer: {
+        position: 'absolute',
+        right: -5,
+        bottom: -5,
+    },
+    plusIcon: {
+        position: 'absolute',
+        right: 7,
+        bottom: 7,
+    },
+    contentText: {
+        fontSize: 16,
+        fontWeight: '400',
+        marginTop: 35,
+        marginBottom: 24,
+        alignSelf: 'center',
+        width: '100%',
+    },
+    registerForm: {
+        width: '75%',
+        alignSelf: 'center',
+    },
+    textInput: {
+        marginVertical: 12,
+    },
+    button: {
+        marginTop: 26,
+        marginHorizontal: '10%',
+    },
+});
 
-                        <TextInput
-                            style={{
-                                borderWidth: 2,
-                                borderColor: '#dddddd',
-                                borderTopLeftRadius: 20,
-                                borderBottomLeftRadius: 20,
-                                borderBottomRightRadius: 20,
-                                borderTopRightRadius: 20,
-                                marginTop: 15,
-                                paddingTop: 5,
-                                paddingBottom: 5,
-                                paddingLeft: 10,
-                                paddingRight: 10,
-                            }}
-                            placeholder="Email"
-                            keyboardType="email-address"
-                        />
-
-                        <PrimaryPillFlatButton
-                            title="Done"
-                            onPress={() => navigate('ChooseMedium')}
-                            style={{
-                                marginHorizontal: '20%',
-                                marginTop: 38,
-                            }}
-                        />
-                    </View>
-                </View>
-            </View>
-        );
-    }
-}
+export default Register;
