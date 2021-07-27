@@ -86,7 +86,7 @@ const DefaultPillFlatButton = props => {
 
 const styles = StyleSheet.create({
     button: {
-        borderWidth: 2,
+        borderWidth: 1,
         borderRadius: 60,
         borderColor: colors.dark,
         paddingVertical: 9,
