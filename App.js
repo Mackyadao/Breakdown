@@ -10,7 +10,7 @@ const App = () => {
     const [publishableKey, setPublishableKey] = useState('');
 
     const fetchPublishableKey = async () => {
-        const response = await fetch(`${API_URL}/api/stripe/config`);
+        const response = await fetch(`${API_URL}/api/v1/stripe/config`);
         const {publishableKey: fetchedPubKey} = await response.json();
 
         setPublishableKey(fetchedPubKey);

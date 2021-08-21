@@ -82,7 +82,7 @@ const PayWithCard = props => {
     const proceedPayment = async () => {
         // create payment intent
         const response = await fetch(
-            `${API_URL}/api/stripe/create-payment-intent`,
+            `${API_URL}/api/v1/stripe/create-payment-intent`,
             {
                 method: 'POST',
                 headers: {

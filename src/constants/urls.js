@@ -1,5 +1,5 @@
 export const urls = {
-    apiUrl: 'https://breakdown.eleyjambaro.website',
+    apiUrl: 'https://breakdown-test-backend.herokuapp.com',
 };
 
 export default urls;
