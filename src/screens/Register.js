@@ -1,207 +1,159 @@
 import React from 'react';
-import {Text,View,Image, TextInput, Icon} from 'react-native';
+import {
+    Text,
+    View,
+    Image,
+    StyleSheet,
+    KeyboardAvoidingView,
+    Platform,
+} from 'react-native';
 
-export default class Register extends React.Component{
+import colors from '../constants/colors';
+import FormPillWithIconTextInput from '../components/forms/FormPillWithIconTextInput';
+import PrimaryPillFlatButton from '../components/buttons/PrimaryPillFlatButton';
 
-    render(){
-        const {navigate} = this.props.navigation
-        return(
-            <View style={{backgroundColor:"#FFF",height:"100%"}}>
-                
+const Register = props => {
+    const {navigation} = props;
+
+    return (
+        <View style={styles.container}>
+            <Image
+                source={require('../assets/logo/iconicMark/iconicMark-colored-3x.png')}
+                style={{
+                    width: 42,
+                    height: 42,
+                    marginTop: 25,
+                    marginLeft: 25,
+                    resizeMode: 'contain',
+                }}
+            />
+
+            <View style={styles.uploadPicture}>
+                <View style={styles.uploadPictureIcon}>
                     <Image
-                    source={require('../images/logorec.png')}
-                    style={{width: 68,height:53,marginTop: 7, marginLeft: 8, position:'absolute'}}
+                        source={require('../images/Vector.png')}
+                        style={styles.userCircledIcon}
                     />
 
-                    <View style={{marginTop: 33, alignSelf:'center', position:'absolute'}}>
-                        <Image
-                        source={require('../images/Vector.png')}
-                        style={{width:113,height:113}}
-                        />
-
-                        <Image
+                    <Image
                         source={require('../images/Ellipse69.png')}
-                        style={{position:'absolute', right:-5, bottom:-5}}
-                        />
-                        <Image
+                        style={styles.plusIconContainer}
+                    />
+                    <Image
                         source={require('../images/+.png')}
-                        style={{position:'absolute', right:7, bottom:7}}
-                        />
-                    </View>
-                    <View style={{position:'absolute', alignSelf:'center', top:153}}>
-                         <Text style={{fontFamily:"SemiBold",fontSize:16, alignSelf:'center', fontWeight:'bold'}}>Add your picture</Text>
-                         
-                         
-                         <TextInput
-                            style={{
-                                borderWidth:2,
-                                borderColor:'#dddddd',
-                                borderTopLeftRadius:20,
-                                borderBottomLeftRadius:20,
-                                borderBottomRightRadius:20,
-                                borderTopRightRadius:20,
-                                marginTop:15,
-                                paddingTop:5,
-                                paddingBottom:5,
-                                paddingLeft:10,
-                                paddingRight:10,
-                            
-                            }}
-                            placeholder="First name"
-                            keyboardType="default"
-                        />
+                        style={styles.plusIcon}
+                    />
+                </View>
 
-                        <TextInput
-                            style={{
-                                borderWidth:2,
-                                borderColor:'#dddddd',
-                                borderTopLeftRadius:20,
-                                borderBottomLeftRadius:20,
-                                borderBottomRightRadius:20,
-                                borderTopRightRadius:20,
-                                marginTop:15,
-                                paddingTop:5,
-                                paddingBottom:5,
-                                paddingLeft:10,
-                                paddingRight:10,
-                            
-                            }}
-                            placeholder="Last name"
-                            keyboardType="default"
-                        />
-
-                        <TextInput
-                            style={{
-                                borderWidth:2,
-                                borderColor:'#dddddd',
-                                borderTopLeftRadius:20,
-                                borderBottomLeftRadius:20,
-                                borderBottomRightRadius:20,
-                                borderTopRightRadius:20,
-                                marginTop:15,
-                                paddingTop:5,
-                                paddingBottom:5,
-                                paddingLeft:10,
-                                paddingRight:10,
-                            
-                            }}
-                            placeholder="Username"
-                            keyboardType="default"
-                        />
-
-                        <TextInput
-                            style={{
-                                borderWidth:2,
-                                borderColor:'#dddddd',
-                                borderTopLeftRadius:20,
-                                borderBottomLeftRadius:20,
-                                borderBottomRightRadius:20,
-                                borderTopRightRadius:20,
-                                marginTop:15,
-                                paddingTop:5,
-                                paddingBottom:5,
-                                paddingLeft:10,
-                                paddingRight:10,
-                            
-                            }}
-                            placeholder="Birthday"
-                            keyboardType="default"
-                        />
-
-                        <TextInput
-                            style={{
-                                borderWidth:2,
-                                borderColor:'#dddddd',
-                                borderTopLeftRadius:20,
-                                borderBottomLeftRadius:20,
-                                borderBottomRightRadius:20,
-                                borderTopRightRadius:20,
-                                marginTop:15,
-                                paddingTop:5,
-                                paddingBottom:5,
-                                paddingLeft:10,
-                                paddingRight:10,
-                            
-                            }}
-                            placeholder="Mobile number"
-                            keyboardType="numeric"
-                        />
-
-                        <TextInput
-                            style={{
-                                borderWidth:2,
-                                borderColor:'#dddddd',
-                                borderTopLeftRadius:20,
-                                borderBottomLeftRadius:20,
-                                borderBottomRightRadius:20,
-                                borderTopRightRadius:20,
-                                marginTop:15,
-                                paddingTop:5,
-                                paddingBottom:5,
-                                paddingLeft:10,
-                                paddingRight:10,
-                            
-                            }}
-                            placeholder="Email"
-                            keyboardType="email-address"
-                        />
-
-                        <TextInput
-                            secureTextEntry={true}
-                            style={{
-                                borderWidth:2,
-                                borderColor:'#dddddd',
-                                borderTopLeftRadius:20,
-                                borderBottomLeftRadius:20,
-                                borderBottomRightRadius:20,
-                                borderTopRightRadius:20,
-                                marginTop:15,
-                                paddingTop:5,
-                                paddingBottom:5,
-                                paddingLeft:10,
-                                paddingRight:10,
-                            
-                            }}
-                            placeholder="Password"
-                            keyboardType="default"
-                        />
-
-                        
-
-                        <Text    
-                        onPress={()=>navigate('ChooseMedium')}      
-                        style={{
-                            borderTopLeftRadius:30,
-                            borderBottomLeftRadius:30,
-                            borderBottomRightRadius:30,
-                            borderTopRightRadius:30,
-                            marginHorizontal:'20%',
-                            marginTop:15,
-                            backgroundColor:'#6C1717',
-                            padding:15,
-                            color:'#FAC17D',
-                            textAlign:'center',
-                            fontFamily:'SemiBold',
-                            fontWeight:'bold'
-                        
-                        }}>Sign up</Text>
-
-                        <Text
-                        style={{
-                            textAlign:'center',
-                            marginTop:10,
-                            fontWeight:'bold'
-                        }}>Don’t have an account? 
-                            <Text 
-                            onPress={()=>navigate('Login')}  
-                            style={{color: '#6C1717'
-                            }}> Log in </Text> 
-                        </Text>
-                        
-                    </View>
-                    
-                
+                <Text style={styles.uploadPictureText}>Add your picture</Text>
             </View>
-        )
-    }
-}
+
+            <KeyboardAvoidingView
+                style={styles.registerForm}
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
+                <Text style={styles.contentText}>
+                    Tell us a little more about yourself,{'\n'}
+                    so we can provide you with{'\n'}
+                    customized content.
+                </Text>
+
+                <FormPillWithIconTextInput
+                    containerStyle={styles.textInput}
+                    name="name"
+                    placeholder="Name"
+                    iconSource={require('../assets/icons/user-solid-3x.png')}
+                />
+
+                <FormPillWithIconTextInput
+                    containerStyle={styles.textInput}
+                    name="username"
+                    placeholder="Username"
+                    autoCapitalize="none"
+                    iconSource={require('../assets/icons/user-solid-3x.png')}
+                />
+
+                <FormPillWithIconTextInput
+                    containerStyle={styles.textInput}
+                    name="birthday"
+                    placeholder="Birthday"
+                    autoCapitalize="none"
+                    iconSource={require('../assets/icons/calendar-solid-3x.png')}
+                />
+
+                <FormPillWithIconTextInput
+                    containerStyle={styles.textInput}
+                    name="mobileNumber"
+                    placeholder="Mobile number"
+                    keyboardType="number-pad"
+                    iconSource={require('../assets/icons/mobile-phone-solid-3x.png')}
+                />
+
+                <FormPillWithIconTextInput
+                    containerStyle={styles.textInput}
+                    name="email"
+                    placeholder="Email"
+                    keyboardType="email-address"
+                    iconSource={require('../assets/icons/email-solid-3x.png')}
+                />
+
+                <PrimaryPillFlatButton
+                    title="Done"
+                    onPress={() => navigation.navigate('ChooseMedium')}
+                    style={styles.button}
+                />
+            </KeyboardAvoidingView>
+        </View>
+    );
+};
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: colors.light,
+        height: '100%',
+    },
+    uploadPictureIcon: {
+        alignSelf: 'center',
+    },
+    uploadPictureText: {
+        marginTop: 16,
+        fontSize: 16,
+        alignSelf: 'center',
+        fontWeight: 'bold',
+    },
+    userCircledIcon: {
+        width: 113,
+        height: 113,
+    },
+    plusIconContainer: {
+        position: 'absolute',
+        right: -5,
+        bottom: -5,
+    },
+    plusIcon: {
+        position: 'absolute',
+        right: 7,
+        bottom: 7,
+    },
+    contentText: {
+        fontSize: 16,
+        fontWeight: '400',
+        marginTop: 35,
+        marginBottom: 24,
+        alignSelf: 'center',
+        width: '100%',
+    },
+    registerForm: {
+        width: '75%',
+        alignSelf: 'center',
+    },
+    textInput: {
+        marginVertical: 12,
+    },
+    button: {
+        marginTop: 26,
+        marginHorizontal: '10%',
+    },
+});
+
+export default Register;

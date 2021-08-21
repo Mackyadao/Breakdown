@@ -1,8 +1,8 @@
 import React from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
-import DefaultPillFlatButton from '../buttons/DefaultPillFlatButton';
+import DefaultPillFlatButton from '../components/buttons/DefaultPillFlatButton';
 
-import RadioButton from '../buttons/RadioButton';
+import RadioButton from '../components/buttons/RadioButton';
 import colors from '../constants/colors';
 
 const Paypal = () => {

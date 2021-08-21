@@ -8,11 +8,12 @@ import {
 } from 'react-native';
 import AntDesign from 'react-native-vector-icons/AntDesign';
 
-import colors from '../constants/colors';
+import colors from '../../constants/colors';
 
-const PrimaryFlatButton = props => {
+const TertiaryFlatButton = props => {
     const {
         style,
+        buttonStyle,
         title,
         icon,
         iconColor: customColor,
@@ -47,7 +48,7 @@ const PrimaryFlatButton = props => {
                 <ActivityIndicator
                     color={
                         inverted
-                            ? colors.primary
+                            ? colors.tertiaryAccent1
                             : disabled
                             ? colors.neutral
                             : colors.light
@@ -74,6 +75,7 @@ const PrimaryFlatButton = props => {
             <View
                 style={[
                     styles.button,
+                    buttonStyle,
                     inverted && styles.buttonInverted,
                     disabled && styles.buttonDisabled,
                 ]}>
@@ -86,28 +88,26 @@ const PrimaryFlatButton = props => {
 
 const styles = StyleSheet.create({
     button: {
+        height: 38,
         borderWidth: 2,
         borderRadius: 5,
         borderColor: colors.dark,
-        paddingVertical: 9,
-        paddingHorizontal: 9,
-        backgroundColor: colors.primary,
+        paddingHorizontal: 8,
+        backgroundColor: colors.tertiaryAccent1,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
     },
     buttonText: {
         color: colors.light,
-        fontWeight: 'bold',
         textTransform: 'uppercase',
-        fontSize: 16,
+        fontSize: 18,
         textAlign: 'center',
+        textAlignVertical: 'center',
         textTransform: 'none',
+        fontFamily: 'Oswald-Bold',
     },
     buttonInverted: {
-        borderWidth: 2,
-        paddingVertical: 8,
-        paddingHorizontal: 8,
         borderColor: colors.dark,
         backgroundColor: 'transparent',
     },
@@ -129,4 +129,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default PrimaryFlatButton;
+export default TertiaryFlatButton;
