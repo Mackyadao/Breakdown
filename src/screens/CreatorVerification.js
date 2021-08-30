@@ -4,10 +4,12 @@ import {
     View,
     Image,
     TextInput,
-    Icon,
-    TouchableOpacity,
     ScrollView,
+    StyleSheet,
 } from 'react-native';
+
+import colors from '../constants/colors';
+import DefaultPillFlatButton from '../components/buttons/DefaultPillFlatButton';
 
 export default class CreatorVerification extends React.Component {
     render() {
@@ -39,36 +41,45 @@ export default class CreatorVerification extends React.Component {
                             fontFamily: 'Oswald-Bold',
                             fontSize: 35,
                             alignSelf: 'center',
-                            color: '#333',
+                            color: colors.dark,
                             textAlign: 'center',
                         }}>
                         Request Creator verification
                     </Text>
                     <Text
                         style={{
-                            fontFamily: 'Montserrat-SemiBold',
+                            fontFamily: 'Roboto',
                             fontSize: 16,
                             padding: 20,
                             alignSelf: 'center',
                             color: '#000',
-                            textAlign: 'justify',
-                            marginTop: 20,
                         }}>
-                        A Verified Creator account is represented by a golden
-                        “V”, placed next to the username. This badge indicates
-                        the account is the authentic presence of a creator,
-                        notable public figure, celebrity of the arts, global
-                        brand or entity it represents.
-                        {'\n'}
-                        {'\n'}Submitting a request will guarantee consideration,
-                        but will not guarantee verification.
+                        <Text style={styles.boldText}>Tier 1</Text> Verified
+                        Creators are represented by a red ring around their
+                        avatar, and indicates that they are a Creator affiliated
+                        with the Film, TV, or Book industries.
+                        {'\n\n'}
+                        <Text style={styles.boldText}>Tier 2</Text> Verified
+                        Creator avatars will wear the red ring, and also be
+                        represented by a golden “V“ alongside their usernames.
+                        This status is reserved for those with sizeable social
+                        media followings, or notable public figures or
+                        celebrities in the arts & entertainment communities.
+                        {'\n\n'}
+                        This process ensures all Creator accounts are the
+                        authentic presence of a Creator, notable public figure,
+                        celebrity of the arts or entertainment industry, global
+                        brand or entity it represents. Full app functionality
+                        will also be unlocked.
+                        {'\n\n'}
+                        Submitting a request will guarantee consideration, but
+                        will not guarantee verification.
                     </Text>
                     <TextInput
                         style={{
                             width: '100%',
                             borderTopWidth: 2,
                             borderBottomWidth: 1,
-                            marginTop: 10,
                             padding: 10,
                         }}
                         placeholder="Username"
@@ -86,88 +97,73 @@ export default class CreatorVerification extends React.Component {
                     <TextInput
                         style={{
                             width: '100%',
-                            borderBottomWidth: 1,
+                            borderBottomWidth: 2,
                             padding: 10,
                         }}
                         placeholder="Known As"
                         keyboardType="default"
                     />
-                    <TextInput
+
+                    <View
                         style={{
-                            width: '100%',
+                            padding: 20,
+                            marginTop: 30,
+                            borderTopWidth: 2,
                             borderBottomWidth: 2,
-                            padding: 10,
-                        }}
-                        placeholder="Art Category"
-                        keyboardType="default"
-                    />
-                    <Text
-                        style={{
-                            fontFamily: 'Montserrat-SemiBold',
-                            fontSize: 16,
-                            padding: 20,
-                            alignSelf: 'center',
-                            color: '#000',
-                            textAlign: 'justify',
-                            marginTop: 20,
-                        }}>
-                        Please attach a copy of your photo ID (feel free to
-                        block out residential information), submit proof of
-                        work, and a 5 second video stating your name, today’s
-                        date, and that you are joining The Breakdown App.
-                    </Text>
-                    <Text
-                        style={{
-                            fontFamily: 'Montserrat-Medium',
-                            fontSize: 16,
-                            padding: 20,
-                            alignSelf: 'center',
-                            color: '#000',
-                            textAlign: 'justify',
                         }}>
                         <Text
                             style={{
-                                color: '#4072BD',
-                                fontFamily: 'Montserrat-SemiBold',
-                            }}>
-                            Choose file
-                        </Text>
-                        {'\n'}
-                        {'\n'}
-                        {'\n'}
-                        We require a government-issued photo ID displaying your
-                        name and date of birth (e.g. driver’s license, passport
-                        or national identification card). Official business
-                        documents (tax filing, recent utility bill, article of
-                        incorporation) are also acceptable forms of
-                        identification needed to view your request.
-                    </Text>
-                    <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                        <Text
-                            onPress={() => navigate('Home')}
-                            style={{
-                                borderTopLeftRadius: 30,
-                                borderBottomLeftRadius: 30,
-                                borderBottomRightRadius: 30,
-                                borderTopRightRadius: 30,
-                                borderWidth: 2,
-                                borderColor: '#aaa',
-                                marginTop: 15,
-                                flex: 1,
-                                backgroundColor: '#4072BD',
-                                padding: 15,
                                 fontSize: 16,
-                                marginHorizontal: 50,
-                                marginBottom: 50,
-                                color: '#FFFFFF',
-                                textAlign: 'center',
-                                fontFamily: 'Montserrat-SemiBold',
+                                color: colors.dark,
                             }}>
-                            Send
+                            <Text
+                                style={{
+                                    color: '#4072BD',
+                                    fontWeight: 'bold',
+                                }}>
+                                Choose file(s)
+                            </Text>
+                            {'\n\n'}
+                            For tier 2 we require a government-issued photo ID
+                            displaying your name and date of birth (e.g.
+                            driver’s license, passport or national
+                            identification card). Official business documents
+                            (tax filing, recent utility bill, article of
+                            incorporation) are also acceptable forms of
+                            identification needed to view your request.
+                            {'\n\n'}
                         </Text>
+
+                        <Text
+                            style={{
+                                fontSize: 16,
+                                color: colors.dark,
+                                textAlign: 'justify',
+                            }}>
+                            Enter proof of work here or upload a files above.
+                        </Text>
+                    </View>
+
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            flexWrap: 'wrap',
+                            justifyContent: 'space-evenly',
+                            marginVertical: 20,
+                        }}>
+                        <DefaultPillFlatButton
+                            title="Send"
+                            onPress={() => navigate('Home')}
+                        />
                     </View>
                 </ScrollView>
             </View>
         );
     }
 }
+
+const styles = StyleSheet.create({
+    boldText: {
+        fontWeight: '700',
+    },
+});

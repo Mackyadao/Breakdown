@@ -1,5 +1,6 @@
 import React from 'react';
 import {Text, View, Image, StyleSheet} from 'react-native';
+import DefaultPillFlatButton from '../components/buttons/DefaultPillFlatButton';
 
 import colors from '../constants/colors';
 
@@ -31,7 +32,7 @@ export default class MakeItOfficial extends React.Component {
                     <View
                         style={{
                             width: '90%',
-                            backgroundColor: colors.neutralLighten3,
+                            backgroundColor: colors.neutralLighten4,
                             padding: 20,
                             alignSelf: 'center',
                             borderRadius: 30,
@@ -42,7 +43,7 @@ export default class MakeItOfficial extends React.Component {
                                 fontFamily: 'Oswald-Bold',
                                 fontSize: 35,
                                 alignSelf: 'center',
-                                color: '#333',
+                                color: colors.dark,
                                 textAlign: 'center',
                             }}>
                             Let’s make it official
@@ -67,49 +68,24 @@ export default class MakeItOfficial extends React.Component {
                             likeness for Admirers. Selecting “Okay” presents
                             steps to verification.
                         </Text>
-                        <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                            <Text
+                        <View
+                            style={{
+                                flexDirection: 'row',
+                                flexWrap: 'wrap',
+                                justifyContent: 'space-evenly',
+                                marginTop: 20,
+                            }}>
+                            <DefaultPillFlatButton
+                                title="Okay"
+                                inverted
                                 onPress={() => navigate('CreatorVerification')}
-                                style={{
-                                    borderTopLeftRadius: 30,
-                                    borderBottomLeftRadius: 30,
-                                    borderBottomRightRadius: 30,
-                                    borderTopRightRadius: 30,
-                                    borderWidth: 2,
-                                    borderColor: '#aaa',
-                                    marginTop: 15,
-                                    flex: 1,
-                                    backgroundColor: '#FFFFFF',
-                                    padding: 10,
-                                    fontSize: 16,
-                                    marginHorizontal: 5,
-                                    color: '#6C1717',
-                                    textAlign: 'center',
-                                    fontFamily: 'Montserrat-SemiBold',
-                                }}>
-                                Okay
-                            </Text>
-                            <Text
+                            />
+
+                            <DefaultPillFlatButton
+                                title="Maybe Later"
+                                inverted
                                 onPress={() => navigate('Home')}
-                                style={{
-                                    borderTopLeftRadius: 30,
-                                    borderBottomLeftRadius: 30,
-                                    borderBottomRightRadius: 30,
-                                    borderTopRightRadius: 30,
-                                    borderWidth: 2,
-                                    borderColor: '#aaa',
-                                    marginTop: 15,
-                                    flex: 1,
-                                    backgroundColor: '#FFFFFF',
-                                    padding: 10,
-                                    fontSize: 16,
-                                    marginHorizontal: 5,
-                                    color: '#6C1717',
-                                    textAlign: 'center',
-                                    fontFamily: 'Montserrat-SemiBold',
-                                }}>
-                                Maybe Later
-                            </Text>
+                            />
                         </View>
                     </View>
                 </View>

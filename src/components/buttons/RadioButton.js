@@ -19,54 +19,86 @@ export default class RadioButton extends Component {
         });
     };
 
-    renderOptionItem = (optionItem, selectOption) => {
+    renderOptionItemRadioCirle = optionItem => {
+        const {value} = this.state;
+
+        return (
+            <TouchableOpacity
+                style={styles.radioCircle}
+                onPress={() => {
+                    this.selectOption(optionItem);
+                }}>
+                {value === optionItem.key && <View style={styles.selectedRb} />}
+            </TouchableOpacity>
+        );
+    };
+
+    renderOptionItemValue = (optionItem, onPress) => {
         if (optionItem.text) {
             return (
-                <Pressable onPress={selectOption}>
+                <Pressable onPress={onPress}>
                     <Text style={styles.optionItem}>{optionItem.text}</Text>
                 </Pressable>
             );
         } else if (optionItem.render) {
             return (
-                <Pressable onPress={selectOption} style={styles.optionItem}>
+                <Pressable onPress={onPress} style={styles.optionItem}>
                     {optionItem.render()}
                 </Pressable>
             );
         }
     };
 
+    renderOptionItem = optionItem => {
+        const {orientation} = this.props;
+
+        if (orientation === 'right') {
+            return (
+                <>
+                    {this.renderOptionItemValue(optionItem, () =>
+                        this.selectOption(optionItem),
+                    )}
+
+                    {this.renderOptionItemRadioCirle(optionItem)}
+                </>
+            );
+        } else {
+            return (
+                <>
+                    {this.renderOptionItemRadioCirle(optionItem)}
+
+                    {this.renderOptionItemValue(optionItem, () =>
+                        this.selectOption(optionItem),
+                    )}
+                </>
+            );
+        }
+    };
+
     render() {
-        const {options} = this.props;
-        const {value} = this.state;
+        const {optionItemStyle, options} = this.props;
 
         return (
-            <View>
+            <>
                 {options.map(optionItem => {
                     return (
-                        <View key={optionItem.key} style={styles.container}>
-                            <TouchableOpacity
-                                style={styles.radioCircle}
-                                onPress={() => {
-                                    this.selectOption(optionItem);
-                                }}>
-                                {value === optionItem.key && (
-                                    <View style={styles.selectedRb} />
-                                )}
-                            </TouchableOpacity>
-
-                            {this.renderOptionItem(optionItem, () =>
-                                this.selectOption(optionItem),
-                            )}
+                        <View
+                            key={optionItem.key}
+                            style={[
+                                styles.optionItemContainer,
+                                optionItemStyle,
+                            ]}>
+                            {this.renderOptionItem(optionItem)}
                         </View>
                     );
                 })}
-            </View>
+            </>
         );
     }
 }
 
 const styles = StyleSheet.create({
-    container: {
+    optionItemContainer: {
         marginBottom: 32,
         alignItems: 'center',
         flexDirection: 'row',
@@ -76,7 +108,7 @@ const styles = StyleSheet.create({
         flex: 1,
         marginLeft: 20,
         fontSize: 20,
-        color: '#000',
+        color: colors.dark,
         fontWeight: '700',
     },
     radioCircle: {

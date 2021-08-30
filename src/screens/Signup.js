@@ -81,7 +81,7 @@ const Signup = props => {
 
                 <PrimaryPillFlatButton
                     style={[styles.button, styles.buttonSmall]}
-                    title="Signup/Sign up"
+                    title="Login/Sign up"
                     onPress={handleSubmit}
                 />
             </View>
