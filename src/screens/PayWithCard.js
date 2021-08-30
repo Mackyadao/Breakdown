@@ -154,7 +154,10 @@ const PayWithCard = props => {
         if (error) {
             Alert.alert(`Error code: ${error.code}`, error.message);
         } else if (paymentIntent) {
-            Alert.alert('Success', 'Payment successful!');
+            Alert.alert(
+                'Payment Successful!',
+                'You now have access to this premium content from @blackkeys',
+            );
             navigation.navigate('LiveViewPaid', {premiumContentAccess: true});
         }
     };
