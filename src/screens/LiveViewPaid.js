@@ -1,34 +1,23 @@
-import React from 'react';
-import {
-    Text,
-    View,
-    Modal,
-    Image,
-    StyleSheet,
-    TouchableOpacity,
-} from 'react-native';
+import React, {useState} from 'react';
+import {View, Modal, Image, StyleSheet, Pressable} from 'react-native';
+
 import colors from '../constants/colors';
-
 import PremiumContentModal from '../modals/PremiumContentModal';
+import ActionsOverlay from '../components/liveView/ActionsOverlay';
+import TopActionBar from '../components/liveView/TopActionBar';
+import CenterActionBar from '../components/liveView/CenterActionBar';
+import BottomActionBar from '../components/liveView/BottomActionBar';
 
-export default class LiveViewPaid extends React.Component {
-    state = {
-        search: '',
-        premiumContentModalVisible: false,
+const LiveViewPaid = props => {
+    const [premiumContentModalVisible, setPremiumContentModalVisible] =
+        useState(false);
+
+    const togglePremiumContentModal = () => {
+        setPremiumContentModalVisible(!premiumContentModalVisible);
     };
 
-    updateSearch = search => {
-        this.setState({search});
-    };
-
-    togglePremiumContentModal = () => {
-        this.setState({
-            premiumContentModalVisible: !this.state.premiumContentModalVisible,
-        });
-    };
-
-    handlePlayPress = () => {
-        const {navigation} = this.props;
+    const handlePlayPress = () => {
+        const {navigation} = props;
 
         if (navigation.getParam('premiumContentAccess', false)) {
             /**
@@ -37,118 +26,59 @@ export default class LiveViewPaid extends React.Component {
              */
             return;
         } else {
-            this.togglePremiumContentModal();
+            togglePremiumContentModal();
         }
     };
 
-    render() {
-        return (
-            <View style={[styles.container, styles.centeredView]}>
-                <Modal
-                    animationType="slide"
-                    transparent={true}
-                    visible={this.state.premiumContentModalVisible}
-                    onRequestClose={() => {
-                        this.setState({
-                            premiumContentModalVisible:
-                                !this.state.premiumContentModalVisible,
-                        });
-                    }}>
-                    <View style={[styles.centeredView]}>
-                        <PremiumContentModal
-                            toggleModal={this.togglePremiumContentModal}
-                        />
-                    </View>
-                </Modal>
+    return (
+        <View style={styles.container}>
+            <Modal
+                animationType="none"
+                transparent={true}
+                visible={premiumContentModalVisible}
+                onRequestClose={() => {
+                    /**
+                     * TODO: Maybe navigate the user back to the previous screen
+                     * instead of just closing the Premium content modal
+                     */
+                    togglePremiumContentModal();
+                }}>
+                <Pressable
+                    style={[styles.centeredView, styles.modalBackdrop]}
+                    onPress={() => {
+                        // do something when the user taps outside the modal
 
-                <Image
-                    source={require('../images/blackkeyslive.png')}
-                    style={{width: '100%', height: '100%'}}
-                />
-                <View
-                    style={{
-                        width: '100%',
-                        height: '100%',
-                        position: 'absolute',
+                        togglePremiumContentModal();
                     }}>
-                    <View
-                        style={{
-                            flexDirection: 'row',
-                            flexWrap: 'wrap',
-                            margin: 10,
-                        }}>
-                        <View style={{marginLeft: 10, flex: 1}}>
-                            <Image
-                                source={require('../images/Vector2.png')}
-                                style={{width: 25, height: 25}}
-                            />
-                        </View>
+                    <PremiumContentModal
+                        toggleModal={togglePremiumContentModal}
+                    />
+                </Pressable>
+            </Modal>
 
-                        <View style={{flexDirection: 'row', flexWrap: 'wrap'}}>
-                            <Image
-                                source={require('../images/Ellipse110.png')}
-                                style={{
-                                    width: 14,
-                                    height: 14,
-                                    marginLeft: 10,
-                                    alignSelf: 'center',
-                                }}
-                            />
-                            <Text
-                                style={{
-                                    textAlign: 'right',
-                                    fontFamily: 'Montserrat-SemiBold',
-                                    color: '#fff',
-                                    fontSize: 18,
-                                }}>
-                                Live
-                            </Text>
-                        </View>
-                    </View>
-                    <TouchableOpacity
-                        onPress={this.handlePlayPress}
-                        style={{justifyContent: 'center', height: '100%'}}>
-                        <Image
-                            source={require('../images/play1.png')}
-                            style={{
-                                width: 95,
-                                height: 85,
-                                alignSelf: 'center',
-                                marginBottom: 100,
-                            }}
-                        />
-                    </TouchableOpacity>
-                    <View
-                        style={{
-                            height: 110,
-                            width: '100%',
-                            position: 'absolute',
-                            bottom: 0,
-                            padding: 10,
-                        }}>
-                        <Text
-                            style={{
-                                fontFamily: 'Montserrat-SemiBold',
-                                color: '#fff',
-                            }}>
-                            @blackkeys V
-                        </Text>
-                        <Text
-                            style={{
-                                fontFamily: 'Montserrat-Regular',
-                                color: '#fff',
-                            }}>
-                            Learn some piano basics
-                        </Text>
-                    </View>
-                </View>
-            </View>
-        );
-    }
-}
+            {/* Video thumbnail */}
+            <Image
+                source={require('../images/blackkeyslive.png')}
+                style={{
+                    width: '100%',
+                    height: '100%',
+                    position: 'absolute',
+                    zIndex: 1,
+                }}
+            />
+
+            <ActionsOverlay handlePlayPress={handlePlayPress}>
+                <TopActionBar />
+                <CenterActionBar />
+                <BottomActionBar />
+            </ActionsOverlay>
+        </View>
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
+        flex: 1,
         backgroundColor: colors.light,
     },
     centeredView: {
@@ -156,7 +86,9 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
     },
-    dimmedBackground: {
-        backgroundColor: 'rgba(0,0,0,0.7)',
+    modalBackdrop: {
+        backgroundColor: 'rgba(0,0,0,0.5)',
     },
 });
+
+export default LiveViewPaid;
