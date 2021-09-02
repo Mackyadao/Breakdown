@@ -19,7 +19,7 @@ const LiveViewPaid = props => {
     const handlePlayPress = () => {
         const {navigation} = props;
 
-        if (navigation.getParam('premiumContentAccess', false)) {
+        if (navigation.getParam('premiumContentAccess')) {
             /**
              * TODO:
              * Grant user to play the video with premium access
@@ -68,7 +68,7 @@ const LiveViewPaid = props => {
             />
 
             <ActionsOverlay handlePlayPress={handlePlayPress}>
-                <TopActionBar />
+                <TopActionBar displayStatusBar={false} />
                 <CenterActionBar />
                 <BottomActionBar />
             </ActionsOverlay>

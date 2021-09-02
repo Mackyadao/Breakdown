@@ -45,6 +45,8 @@ const BottomActionBar = () => {
 
 const styles = StyleSheet.create({
     container: {
+        position: 'absolute',
+        bottom: 0,
         flexDirection: 'row',
         alignItems: 'flex-start',
         marginBottom: 45,
@@ -72,6 +74,7 @@ const styles = StyleSheet.create({
     ellipsisMenu: {
         marginHorizontal: 12,
         width: 8,
+        height: 0,
         resizeMode: 'contain',
         flex: 1,
     },
