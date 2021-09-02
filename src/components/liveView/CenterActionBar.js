@@ -3,7 +3,8 @@ import {View, Image, TouchableOpacity, StyleSheet} from 'react-native';
 
 import {ActionsOverlayContext} from '../../context/types';
 
-const CenterActionBar = () => {
+const CenterActionBar = props => {
+    const {displayPlayButton} = props;
     const actionOverlayContext = useContext(ActionsOverlayContext);
 
     if (!actionOverlayContext) {
@@ -14,16 +15,20 @@ const CenterActionBar = () => {
 
     const {handlePlayPress} = actionOverlayContext;
 
-    return (
-        <View style={styles.container}>
-            <TouchableOpacity onPress={handlePlayPress}>
-                <Image
-                    source={require('../../assets/icons/video-play-button-3x.png')}
-                    style={styles.playButton}
-                />
-            </TouchableOpacity>
-        </View>
-    );
+    const renderPlayButton = () => {
+        if (displayPlayButton) {
+            return (
+                <TouchableOpacity onPress={handlePlayPress}>
+                    <Image
+                        source={require('../../assets/icons/video-play-button-3x.png')}
+                        style={styles.playButton}
+                    />
+                </TouchableOpacity>
+            );
+        }
+    };
+
+    return <View style={styles.container}>{renderPlayButton()}</View>;
 };
 
 const styles = StyleSheet.create({
