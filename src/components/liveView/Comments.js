@@ -1,14 +1,19 @@
 import React, {useState} from 'react';
-import {View, Text, Image, Pressable, StyleSheet} from 'react-native';
+import {View, Image, Pressable, StyleSheet} from 'react-native';
+
 import colors from '../../constants/colors';
 import FormTextInput from '../forms/FormTextInput';
+import CommentItem from './CommentItem';
+
+// dummy auth user
+const authUser = {
+    username: 'tbastudios',
+    userAvatar: require('../../assets/images/live-comment-user-avatar-0-3x.png'),
+};
 
 const Comments = () => {
     const formValuesInitState = {
-        author: {
-            username: 'tbastudios',
-            userAvatar: require('../../assets/images/live-comment-user-avatar-0-3x.png'),
-        },
+        author: authUser,
         content: '',
     };
     const [formValues, setFormValues] = useState(formValuesInitState);
@@ -41,31 +46,19 @@ const Comments = () => {
         },
     ]);
 
-    const commentListItems = comments.map(comment => {
-        return (
-            <View key={comment.id} style={styles.commentItem}>
-                <View style={styles.userAvatarContainer}>
-                    <Image
-                        style={styles.userAvatar}
-                        source={comment.author.userAvatar}
-                    />
-                </View>
+    const [focusedCommentId, setFocusedCommentId] = useState(null);
 
-                <View style={styles.commentContainer}>
-                    <Text style={styles.commentAuthor}>
-                        {comment.author.username}
-                    </Text>
+    const handleLongPressedCommentItem = commentId => {
+        setFocusedCommentId(commentId);
+    };
 
-                    <Text style={styles.commentContent}>{comment.content}</Text>
-                    <View style={styles.commentActionsContainer}>
-                        <Pressable>
-                            <Text style={styles.actionText}>Reply</Text>
-                        </Pressable>
-                    </View>
-                </View>
-            </View>
-        );
-    });
+    const handleCommentReplyPress = commentAuthorUsername => {
+        setFormValues(values => {
+            return {...values, content: `@${commentAuthorUsername} `};
+        });
+
+        setFocusedCommentId(null);
+    };
 
     const handleChangeText = (fieldValue, fieldName) => {
         setFormValues(values => {
@@ -91,6 +84,22 @@ const Comments = () => {
 
         setFormValues(formValuesInitState);
     };
+
+    const commentListItems = comments.map(comment => {
+        return (
+            <CommentItem
+                comment={comment}
+                focused={
+                    focusedCommentId === comment.id &&
+                    comment.author.username !== authUser.username
+                        ? true
+                        : false
+                }
+                handleLongPress={handleLongPressedCommentItem}
+                handleCommentReplyPress={handleCommentReplyPress}
+            />
+        );
+    });
 
     return (
         <View style={styles.container}>
@@ -133,38 +142,6 @@ const styles = StyleSheet.create({
         paddingBottom: 10,
         backgroundColor: 'rgba(0,0,0,0.3)',
         shadowColor: colors.dark,
-    },
-    commentItem: {
-        flex: 1,
-        flexDirection: 'row',
-        marginVertical: 5,
-    },
-    userAvatarContainer: {},
-    userAvatar: {
-        height: 35,
-        width: 35,
-    },
-    commentContainer: {
-        flex: 1,
-        marginHorizontal: 10,
-    },
-    commentAuthor: {
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: colors.light,
-    },
-    commentContent: {
-        fontSize: 16,
-        color: colors.light,
-    },
-    commentActionsContainer: {
-        padding: 2,
-    },
-    actionText: {
-        marginLeft: 20,
-        fontSize: 16,
-        fontWeight: 'bold',
-        color: colors.light,
     },
     newCommentSection: {
         paddingHorizontal: 14,
