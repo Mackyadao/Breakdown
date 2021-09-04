@@ -35,10 +35,12 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         flexWrap: 'wrap',
+        justifyContent: 'center',
         alignSelf: 'center',
-        marginTop: 6,
-        marginBottom: 10,
         marginHorizontal: 26,
+        marginBottom: 5,
+        paddingVertical: 3,
+        width: '100%',
     },
 });
 
