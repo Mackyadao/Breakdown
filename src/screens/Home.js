@@ -5,14 +5,14 @@ import colors from '../constants/colors';
 import DefaultHeader from '../components/headers/DefaultHeader';
 import MainTopNavbar from '../components/navbars/MainTopNavbar';
 import MainBottomNavbar from '../components/navbars/MainBottomNavbar';
-import HomeFeed from './HomeFeed';
+import ChatStreamList from './ChatStreamList';
 
 const Home = () => {
     return (
         <View style={styles.container}>
             <DefaultHeader style={styles.screenHeader} />
             <MainTopNavbar />
-            <HomeFeed />
+            <ChatStreamList />
             <MainBottomNavbar />
         </View>
     );
