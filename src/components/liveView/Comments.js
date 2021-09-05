@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useRef} from 'react';
 import {View, Image, Pressable, FlatList, StyleSheet} from 'react-native';
 
 import colors from '../../constants/colors';
@@ -47,6 +47,8 @@ const Comments = () => {
     ]);
 
     const [focusedCommentId, setFocusedCommentId] = useState(null);
+    const commentList = useRef(null);
+    const newCommentInput = useRef(null);
 
     const handleLongPressedCommentItem = commentId => {
         setFocusedCommentId(commentId);
@@ -58,6 +60,7 @@ const Comments = () => {
         });
 
         setFocusedCommentId(null);
+        newCommentInput.current.focus();
     };
 
     const handleChangeText = (fieldValue, fieldName) => {
@@ -88,6 +91,7 @@ const Comments = () => {
     return (
         <View style={styles.container}>
             <FlatList
+                ref={commentList}
                 contentContainerStyle={{paddingBottom: 21}}
                 style={styles.commentList}
                 data={comments}
@@ -109,6 +113,7 @@ const Comments = () => {
             <View style={styles.newCommentSection}>
                 <View style={styles.newCommentInputContainer}>
                     <FormTextInput
+                        ref={newCommentInput}
                         name="content"
                         style={styles.newCommentInput}
                         placeholder="Share your thoughts..."
