@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Image, Pressable, StyleSheet} from 'react-native';
+import {View, Image, Pressable, FlatList, StyleSheet} from 'react-native';
 
 import colors from '../../constants/colors';
 import FormTextInput from '../forms/FormTextInput';
@@ -85,25 +85,26 @@ const Comments = () => {
         setFormValues(formValuesInitState);
     };
 
-    const commentListItems = comments.map(comment => {
-        return (
-            <CommentItem
-                comment={comment}
-                focused={
-                    focusedCommentId === comment.id &&
-                    comment.author.username !== authUser.username
-                        ? true
-                        : false
-                }
-                handleLongPress={handleLongPressedCommentItem}
-                handleCommentReplyPress={handleCommentReplyPress}
-            />
-        );
-    });
-
     return (
         <View style={styles.container}>
-            <View style={styles.commentList}>{commentListItems}</View>
+            <FlatList
+                contentContainerStyle={{paddingBottom: 21}}
+                style={styles.commentList}
+                data={comments}
+                renderItem={({item: comment}) => (
+                    <CommentItem
+                        comment={comment}
+                        focused={
+                            focusedCommentId === comment.id &&
+                            comment.author.username !== authUser.username
+                                ? true
+                                : false
+                        }
+                        handleLongPress={handleLongPressedCommentItem}
+                        handleCommentReplyPress={handleCommentReplyPress}
+                    />
+                )}
+            />
 
             <View style={styles.newCommentSection}>
                 <View style={styles.newCommentInputContainer}>
@@ -136,10 +137,10 @@ const styles = StyleSheet.create({
         right: 0,
     },
     commentList: {
+        maxHeight: 300,
         width: '100%',
-        paddingTop: 12,
+        paddingTop: 8,
         paddingHorizontal: 12,
-        paddingBottom: 10,
         backgroundColor: 'rgba(0,0,0,0.3)',
         shadowColor: colors.dark,
     },
