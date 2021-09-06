@@ -1,11 +1,10 @@
-import React, {useContext, useState} from 'react';
+import React, {useContext} from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import colors from '../../constants/colors';
 
 import {ActionsOverlayContext} from '../../context/types';
 
-const TopActionBar = props => {
-    const {displayStatusBar} = props;
+const TopActionBar = () => {
     const actionOverlayContext = useContext(ActionsOverlayContext);
 
     if (!actionOverlayContext) {
@@ -14,35 +13,41 @@ const TopActionBar = props => {
         );
     }
 
+    const {isPlaying, statusBarHidden} = actionOverlayContext;
+
     const renderStatusBar = () => {
-        if (displayStatusBar) {
-            return (
-                <View style={styles.statusBar}>
-                    <View style={styles.statusBarItemCard}>
-                        <Image
-                            source={require('../../assets/icons/live-time-3x.png')}
-                            style={styles.statusBarItemIcon}
-                        />
-                        <Text style={styles.statusBarItemText}>00:12</Text>
-                    </View>
+        if (isPlaying) {
+            if (!statusBarHidden) {
+                return (
+                    <View style={styles.statusBar}>
+                        <View style={styles.statusBarItemCard}>
+                            <Image
+                                source={require('../../assets/icons/live-time-3x.png')}
+                                style={styles.statusBarItemIcon}
+                            />
+                            <Text style={styles.statusBarItemText}>00:12</Text>
+                        </View>
 
-                    <View style={styles.statusBarItemCard}>
-                        <Image
-                            source={require('../../assets/icons/live-tip-3x.png')}
-                            style={styles.statusBarItemIcon}
-                        />
-                        <Text style={styles.statusBarItemText}>$15</Text>
-                    </View>
+                        <View style={styles.statusBarItemCard}>
+                            <Image
+                                source={require('../../assets/icons/live-tip-3x.png')}
+                                style={styles.statusBarItemIcon}
+                            />
+                            <Text style={styles.statusBarItemText}>$15</Text>
+                        </View>
 
-                    <View style={styles.statusBarItemCard}>
-                        <Image
-                            source={require('../../assets/icons/live-viewing-count-3x.png')}
-                            style={styles.statusBarItemIcon}
-                        />
-                        <Text style={styles.statusBarItemText}>300</Text>
+                        <View style={styles.statusBarItemCard}>
+                            <Image
+                                source={require('../../assets/icons/live-viewing-count-3x.png')}
+                                style={styles.statusBarItemIcon}
+                            />
+                            <Text style={styles.statusBarItemText}>300</Text>
+                        </View>
                     </View>
-                </View>
-            );
+                );
+            } else {
+                return null;
+            }
         }
     };
 

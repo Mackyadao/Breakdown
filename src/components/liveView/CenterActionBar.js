@@ -3,8 +3,7 @@ import {View, Image, TouchableOpacity, StyleSheet} from 'react-native';
 
 import {ActionsOverlayContext} from '../../context/types';
 
-const CenterActionBar = props => {
-    const {displayPlayButton} = props;
+const CenterActionBar = () => {
     const actionOverlayContext = useContext(ActionsOverlayContext);
 
     if (!actionOverlayContext) {
@@ -13,10 +12,10 @@ const CenterActionBar = props => {
         );
     }
 
-    const {handlePlayPress} = actionOverlayContext;
+    const {isPlaying, handlePlayPress} = actionOverlayContext;
 
     const renderPlayButton = () => {
-        if (displayPlayButton) {
+        if (!isPlaying) {
             return (
                 <TouchableOpacity onPress={handlePlayPress}>
                     <Image
