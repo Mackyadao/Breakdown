@@ -12,23 +12,27 @@ const CenterActionBar = () => {
         );
     }
 
-    const {handlePlayPress} = actionOverlayContext;
+    const {isPlaying, handlePlayPress} = actionOverlayContext;
 
-    return (
-        <View style={styles.container}>
-            <TouchableOpacity onPress={handlePlayPress}>
-                <Image
-                    source={require('../../assets/icons/video-play-button-3x.png')}
-                    style={styles.playButton}
-                />
-            </TouchableOpacity>
-        </View>
-    );
+    const renderPlayButton = () => {
+        if (!isPlaying) {
+            return (
+                <TouchableOpacity onPress={handlePlayPress}>
+                    <Image
+                        source={require('../../assets/icons/video-play-button-3x.png')}
+                        style={styles.playButton}
+                    />
+                </TouchableOpacity>
+            );
+        }
+    };
+
+    return <View style={styles.container}>{renderPlayButton()}</View>;
 };
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
+        height: '100%',
         justifyContent: 'center',
         alignItems: 'center',
     },

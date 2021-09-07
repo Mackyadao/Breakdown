@@ -131,7 +131,21 @@ const PayWithCard = props => {
             return;
         }
 
-        const {invoice, invoiceItems, paymentIntentClientSecret} = response;
+        const {invoice, invoiceItems, paymentIntentClientSecret, error, code} =
+            response;
+
+        if (error) {
+            setIsInvoiceLoading(false);
+
+            if (code && code === 'customer_tax_location_invalid') {
+                Alert.alert(
+                    'Invalid location',
+                    'Please input a valid postal code.',
+                );
+            }
+
+            return;
+        }
 
         setIsInvoiceLoading(false);
         setInvoice(invoice);
@@ -305,7 +319,8 @@ const PayWithCard = props => {
     };
 
     const renderInvoiceDetails = () => {
-        if (!showInvoice) return null;
+        if (!invoice || !showInvoice) return null;
+        if (!invoiceItems.length > 0) return null;
 
         const invoiceItem = invoiceItems[0];
 
@@ -361,7 +376,7 @@ const PayWithCard = props => {
     };
 
     const renderCardInformationField = () => {
-        if (showCardInfoField) {
+        if (invoice && showCardInfoField) {
             return (
                 <View style={styles.form}>
                     <Text style={styles.formHeading}>{`Pay $${(
