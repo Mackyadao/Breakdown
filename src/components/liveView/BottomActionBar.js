@@ -1,7 +1,6 @@
 import React, {useContext} from 'react';
 
 import {ActionsOverlayContext} from '../../context/types';
-
 import VideoDetails from './VideoDetails';
 import Comments from './Comments';
 

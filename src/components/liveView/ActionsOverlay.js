@@ -1,21 +1,42 @@
-import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet} from 'react-native';
 
 import {ActionsOverlayContext} from '../../context/types';
 import TopActionBar from './TopActionBar';
 import CenterActionBar from './CenterActionBar';
 import BottomActionBar from './BottomActionBar';
+import MultiTapHandler from '../handlers/MultiTapHandler';
 
 const ActionsOverlay = props => {
-    const {children, ...otherProps} = props;
+    const [isStatusBarHidden, setIsStatusBarHidden] = useState(false);
+    const [isCommentsHidden, setIsCommentsHidden] = useState(false);
+
+    const toggleStatusBar = () => {
+        setIsStatusBarHidden(!isStatusBarHidden);
+    };
+
+    const toggleComments = () => {
+        setIsCommentsHidden(!isCommentsHidden);
+    };
 
     return (
-        <ActionsOverlayContext.Provider value={{...otherProps}}>
-            <View style={styles.container}>
+        <ActionsOverlayContext.Provider
+            value={{
+                statusBarHidden: isStatusBarHidden,
+                commentsHidden: isCommentsHidden,
+                ...props,
+            }}>
+            <MultiTapHandler
+                style={styles.container}
+                onPress={() => {
+                    toggleStatusBar();
+                    toggleComments();
+                }}
+                onDoublePress={props.handlePlayPress}>
                 <TopActionBar />
                 <CenterActionBar />
                 <BottomActionBar />
-            </View>
+            </MultiTapHandler>
         </ActionsOverlayContext.Provider>
     );
 };

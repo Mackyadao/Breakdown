@@ -4,10 +4,6 @@ import {View, Modal, Image, StyleSheet, Pressable} from 'react-native';
 import colors from '../constants/colors';
 import PremiumContentModal from '../modals/PremiumContentModal';
 import ActionsOverlay from '../components/liveView/ActionsOverlay';
-import TopActionBar from '../components/liveView/TopActionBar';
-import CenterActionBar from '../components/liveView/CenterActionBar';
-import BottomActionBar from '../components/liveView/BottomActionBar';
-import Comments from '../components/liveView/Comments';
 
 const LiveViewPaid = props => {
     const [premiumContentModalVisible, setPremiumContentModalVisible] =
@@ -26,18 +22,10 @@ const LiveViewPaid = props => {
              * TODO:
              * Grant user to play the video with premium access
              */
-            setIsPlaying(true);
+            setIsPlaying(!isPlaying);
             return;
         } else {
             togglePremiumContentModal();
-        }
-    };
-
-    const renderBottomActionBarOrComments = () => {
-        if (isPlaying) {
-            return <Comments />;
-        } else {
-            return <BottomActionBar />;
         }
     };
 
@@ -78,11 +66,10 @@ const LiveViewPaid = props => {
                 }}
             />
 
-            <ActionsOverlay handlePlayPress={handlePlayPress}>
-                <TopActionBar displayStatusBar={isPlaying ? true : false} />
-                <CenterActionBar displayPlayButton={isPlaying ? false : true} />
-                {renderBottomActionBarOrComments()}
-            </ActionsOverlay>
+            <ActionsOverlay
+                isPlaying={isPlaying}
+                handlePlayPress={handlePlayPress}
+            />
         </View>
     );
 };
