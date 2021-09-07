@@ -11,7 +11,13 @@ const authUser = {
     userAvatar: require('../../assets/images/live-comment-user-avatar-0-3x.png'),
 };
 
-const Comments = () => {
+const Comments = props => {
+    const {
+        contentContainerStyle,
+        commentListStyle,
+        commentTextColor,
+        renderHeader,
+    } = props;
     const formValuesInitState = {
         author: authUser,
         content: '',
@@ -89,11 +95,13 @@ const Comments = () => {
     };
 
     return (
-        <View style={styles.container}>
+        <View style={[styles.container, contentContainerStyle]}>
+            {renderHeader && renderHeader()}
+
             <FlatList
                 ref={commentList}
                 contentContainerStyle={{paddingBottom: 21}}
-                style={styles.commentList}
+                style={[styles.commentList, commentListStyle]}
                 data={comments}
                 renderItem={({item: comment}) => (
                     <CommentItem
@@ -104,6 +112,7 @@ const Comments = () => {
                                 ? true
                                 : false
                         }
+                        commentTextColor={commentTextColor}
                         handleLongPress={handleLongPressedCommentItem}
                         handleCommentReplyPress={handleCommentReplyPress}
                     />

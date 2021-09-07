@@ -4,12 +4,18 @@ import {View, Text, Image, Pressable, StyleSheet} from 'react-native';
 import colors from '../../constants/colors';
 
 const CommentItem = props => {
-    const {comment, focused, handleLongPress, handleCommentReplyPress} = props;
+    const {
+        comment,
+        focused,
+        handleLongPress,
+        handleCommentReplyPress,
+        commentTextColor = colors.light,
+    } = props;
 
     const renderCommentAuthor = () => {
         if (focused) {
             return (
-                <Text style={styles.commentAuthor}>
+                <Text style={[styles.commentAuthor, {color: commentTextColor}]}>
                     {`@${comment.author.username}`}
                 </Text>
             );
@@ -25,17 +31,31 @@ const CommentItem = props => {
             // add comment author user name to the content
             commentContent = (
                 <Text>
-                    <Text style={styles.commentAuthor}>
+                    <Text
+                        style={[
+                            styles.commentAuthor,
+                            {color: commentTextColor},
+                        ]}>
                         {comment.author.username}
                         {'  '}
                     </Text>
 
-                    <Text style={styles.commentContent}>{comment.content}</Text>
+                    <Text
+                        style={[
+                            styles.commentContent,
+                            {color: commentTextColor},
+                        ]}>
+                        {comment.content}
+                    </Text>
                 </Text>
             );
         }
 
-        return <Text style={styles.commentContent}>{commentContent}</Text>;
+        return (
+            <Text style={[styles.commentContent, {color: commentTextColor}]}>
+                {commentContent}
+            </Text>
+        );
     };
 
     const renderCommentActions = () => {
@@ -46,7 +66,13 @@ const CommentItem = props => {
                         onPress={() => {
                             handleCommentReplyPress(comment.author.username);
                         }}>
-                        <Text style={styles.actionText}>Reply</Text>
+                        <Text
+                            style={[
+                                styles.actionText,
+                                {color: commentTextColor},
+                            ]}>
+                            Reply
+                        </Text>
                     </Pressable>
                 </View>
             );

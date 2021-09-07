@@ -1,11 +1,13 @@
 import React, {useContext} from 'react';
 
 import {ActionsOverlayContext} from '../../context/types';
+import useOrientation from '../../hooks/useOrientation';
 import VideoDetails from './VideoDetails';
 import Comments from './Comments';
 
 const BottomActionBar = () => {
     const actionOverlayContext = useContext(ActionsOverlayContext);
+    const orientation = useOrientation();
 
     if (!actionOverlayContext) {
         throw new Error(
@@ -16,7 +18,7 @@ const BottomActionBar = () => {
     const {isPlaying, commentsHidden} = actionOverlayContext;
 
     if (isPlaying) {
-        if (!commentsHidden) {
+        if (!commentsHidden && orientation.isPortrait) {
             return <Comments />;
         } else {
             return null;
