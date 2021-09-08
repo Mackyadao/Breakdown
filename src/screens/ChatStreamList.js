@@ -15,6 +15,7 @@ const chatStreams = [
             name: 'Movies',
             icon: require('../assets/icons/chat-stream-category-movies-3x.png'),
         },
+        chatRooms: [],
     },
     {
         id: 2,
@@ -26,6 +27,7 @@ const chatStreams = [
             name: 'Music',
             icon: require('../assets/icons/chat-stream-category-music-3x.png'),
         },
+        chatRooms: [],
     },
     {
         id: 3,
@@ -37,6 +39,32 @@ const chatStreams = [
             name: 'Books',
             icon: require('../assets/icons/chat-stream-category-books-3x.png'),
         },
+        chatRooms: [
+            {
+                id: 1,
+                name: 'My Inspiration',
+                participantsCount: '25',
+                chatCount: '400',
+            },
+            {
+                id: 2,
+                name: "What's your favorite chapter and why",
+                participantsCount: '15',
+                chatCount: '650',
+            },
+            {
+                id: 3,
+                name: 'How do you nurture a relationship?',
+                participantsCount: '85',
+                chatCount: '6K',
+            },
+            {
+                id: 4,
+                name: 'How to cultivate motivation daily',
+                participantsCount: '65',
+                chatCount: '2K',
+            },
+        ],
     },
     {
         id: 4,
@@ -48,6 +76,32 @@ const chatStreams = [
             name: 'Music',
             icon: require('../assets/icons/chat-stream-category-music-3x.png'),
         },
+        chatRooms: [
+            {
+                id: 1,
+                name: 'Butterfly (1997)',
+                participantsCount: '25',
+                chatCount: '400',
+            },
+            {
+                id: 2,
+                name: 'Emotions (1991)',
+                participantsCount: '15',
+                chatCount: '650',
+            },
+            {
+                id: 3,
+                name: 'Daydream (1995)',
+                participantsCount: '85',
+                chatCount: '6K',
+            },
+            {
+                id: 4,
+                name: 'Mariah Carey (1990)',
+                participantsCount: '65',
+                chatCount: '2K',
+            },
+        ],
     },
     {
         id: 5,
@@ -59,6 +113,26 @@ const chatStreams = [
             name: 'Photography',
             icon: require('../assets/icons/chat-stream-category-photography-3x.png'),
         },
+        chatRooms: [
+            {
+                id: 1,
+                name: 'Indoor Lighting Tactics',
+                participantsCount: '25',
+                chatCount: '400',
+            },
+            {
+                id: 2,
+                name: 'Outdoor Night Shoots',
+                participantsCount: '15',
+                chatCount: '650',
+            },
+            {
+                id: 3,
+                name: 'How to Shoot Without a Flash',
+                participantsCount: '85',
+                chatCount: '6K',
+            },
+        ],
     },
     {
         id: 6,
@@ -70,6 +144,7 @@ const chatStreams = [
             name: 'Movies',
             icon: require('../assets/icons/chat-stream-category-movies-3x.png'),
         },
+        chatRooms: [],
     },
 ];
 

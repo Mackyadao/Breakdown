@@ -21,6 +21,7 @@ import MovieDetailsTrailer from '../screens/MovieDetailsTrailer';
 import PaymentMethod from '../screens/PaymentMethod';
 import PayWithCard from '../screens/PayWithCard';
 import Signup from '../screens/Signup';
+import ChatGallery from '../screens/ChatGallery';
 
 const stackNavigatorOptions = {
     headerShown: false,
@@ -49,6 +50,7 @@ const AppNavigator = createStackNavigator(
         MovieDetailsTrailer: {screen: MovieDetailsTrailer},
         PaymentMethod: {screen: PaymentMethod},
         PayWithCard: {screen: PayWithCard},
+        ChatGallery: {screen: ChatGallery},
     },
     {
         defaultNavigationOptions: stackNavigatorOptions,

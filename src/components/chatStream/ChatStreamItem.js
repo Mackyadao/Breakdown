@@ -1,12 +1,16 @@
 import React from 'react';
 import {View, Text, Image, Pressable, StyleSheet} from 'react-native';
+import {withNavigation} from 'react-navigation';
+
 import colors from '../../constants/colors';
 
 const ChatStreamItem = props => {
-    const {chatStream} = props;
+    const {chatStream, navigation} = props;
 
     return (
-        <Pressable style={styles.card}>
+        <Pressable
+            style={styles.card}
+            onPress={() => navigation.navigate('ChatGallery', {chatStream})}>
             <View style={styles.cardLeft}>
                 <View style={styles.cardHeader}>
                     <View style={styles.cardHeaderLeft}>
@@ -61,7 +65,7 @@ const ChatStreamItem = props => {
 
 const styles = StyleSheet.create({
     card: {
-        marginTop: 8,
+        marginTop: 5,
         marginHorizontal: 10,
         backgroundColor: '#fff',
         flexDirection: 'row',
@@ -157,4 +161,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ChatStreamItem;
+export default withNavigation(ChatStreamItem);
