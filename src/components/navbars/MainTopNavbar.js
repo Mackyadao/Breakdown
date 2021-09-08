@@ -2,16 +2,18 @@ import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {withNavigation} from 'react-navigation';
 
+import colors from '../../constants/colors';
 import DefaultNavbarButton from '../buttons/DefaultNavbarButton';
 
 const MainTopNavbar = props => {
-    const {style, navigation} = props;
+    const {style, renderCircularImage, navigation} = props;
 
     return (
         <View style={[styles.container, style]}>
             <DefaultNavbarButton
                 title="Chat Stream"
                 iconSource={require('../../images/conversation1.png')}
+                onPress={() => navigation.navigate('Home')}
             />
 
             <DefaultNavbarButton
@@ -27,6 +29,8 @@ const MainTopNavbar = props => {
                 iconStyle={{width: 9.1, height: 13.26, margin: 2}}
                 onPress={() => navigation.navigate('WhatsTrending')}
             />
+
+            {renderCircularImage && renderCircularImage()}
         </View>
     );
 };
@@ -35,10 +39,13 @@ const styles = StyleSheet.create({
     container: {
         flexDirection: 'row',
         flexWrap: 'wrap',
+        justifyContent: 'center',
         alignSelf: 'center',
-        marginTop: 6,
-        marginBottom: 10,
         marginHorizontal: 26,
+        marginBottom: 5,
+        paddingVertical: 3,
+        width: '100%',
+        backgroundColor: colors.light,
     },
 });
 

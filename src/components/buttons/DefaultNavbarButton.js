@@ -20,12 +20,12 @@ const DefaultNavbarButton = props => {
 
 const styles = StyleSheet.create({
     container: {
-        flex: 1,
         flexWrap: 'wrap',
         flexDirection: 'row',
+        marginVertical: 5,
+        marginHorizontal: 7,
+        paddingHorizontal: 5,
         borderWidth: 1,
-        padding: 3,
-        margin: 5,
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: colors.light,
@@ -39,7 +39,7 @@ const styles = StyleSheet.create({
         marginRight: 4,
     },
     buttonText: {
-        fontSize: 10,
+        fontSize: 9,
         fontWeight: '700',
     },
 });
