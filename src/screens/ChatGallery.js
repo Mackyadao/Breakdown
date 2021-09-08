@@ -1,6 +1,7 @@
 import React from 'react';
 import {View, StyleSheet} from 'react-native';
 import {withNavigation} from 'react-navigation';
+
 import ChatRooms from '../components/chatStream/ChatRooms';
 import ChatGalleryTopNavbar from '../components/navbars/ChatGalleryTopNavbar';
 import MainTopNavbar from '../components/navbars/MainTopNavbar';

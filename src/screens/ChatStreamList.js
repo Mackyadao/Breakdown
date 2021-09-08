@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, FlatList} from 'react-native';
 import ChatStreamItem from '../components/chatStream/ChatStreamItem';
+
 import colors from '../constants/colors';
 
 // dummy data

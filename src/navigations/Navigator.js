@@ -22,6 +22,7 @@ import PaymentMethod from '../screens/PaymentMethod';
 import PayWithCard from '../screens/PayWithCard';
 import Signup from '../screens/Signup';
 import ChatGallery from '../screens/ChatGallery';
+import ChatRoomView from '../screens/ChatRoomView';
 
 const stackNavigatorOptions = {
     headerShown: false,
@@ -51,6 +52,7 @@ const AppNavigator = createStackNavigator(
         PaymentMethod: {screen: PaymentMethod},
         PayWithCard: {screen: PayWithCard},
         ChatGallery: {screen: ChatGallery},
+        ChatRoomView: {screen: ChatRoomView},
     },
     {
         defaultNavigationOptions: stackNavigatorOptions,

@@ -1,13 +1,18 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {withNavigation} from 'react-navigation';
+import {View, Text, Image, Pressable, StyleSheet} from 'react-native';
 
 import colors from '../../constants/colors';
 
 const ChatRoomItem = props => {
-    const {chatRoom} = props;
+    const {chatRoom, navigation} = props;
 
     return (
-        <View style={styles.container}>
+        <Pressable
+            onPress={() => {
+                navigation.navigate('ChatRoomView');
+            }}
+            style={styles.container}>
             <View style={styles.header}>
                 <View style={styles.ellipsisMenuContainer}>
                     <Image
@@ -53,7 +58,7 @@ const ChatRoomItem = props => {
                     </View>
                 </View>
             </View>
-        </View>
+        </Pressable>
     );
 };
 
@@ -137,4 +142,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ChatRoomItem;
+export default withNavigation(ChatRoomItem);
