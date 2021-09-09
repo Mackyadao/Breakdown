@@ -5,10 +5,13 @@ import ChatRoomTopNavbar from '../components/navbars/ChatRoomTopNavbar';
 import colors from '../constants/colors';
 import ChatRoomComments from '../components/chatStream/ChatRoomComments';
 
-const ChatRoomView = () => {
+const ChatRoomView = props => {
+    const {navigation} = props;
+    const chatRoom = navigation.getParam('chatRoom');
+
     return (
         <View style={styles.container}>
-            <ChatRoomTopNavbar />
+            <ChatRoomTopNavbar chatRoom={chatRoom} />
             <ChatRoomComments />
         </View>
     );

@@ -10,7 +10,7 @@ const ChatRoomItem = props => {
     return (
         <Pressable
             onPress={() => {
-                navigation.navigate('ChatRoomView');
+                navigation.navigate('ChatRoomView', {chatRoom});
             }}
             style={styles.container}>
             <View style={styles.header}>

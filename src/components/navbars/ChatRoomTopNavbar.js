@@ -5,7 +5,7 @@ import {withNavigation} from 'react-navigation';
 import colors from '../../constants/colors';
 
 const ChatRoomTopNavbar = props => {
-    const {navigation} = props;
+    const {navigation, chatRoom} = props;
 
     return (
         <View style={styles.container}>
@@ -27,7 +27,7 @@ const ChatRoomTopNavbar = props => {
                 </Pressable>
             </View>
             <View style={styles.wrapper}>
-                <Text style={styles.chatRoomName}>Outdoor Night Shoots</Text>
+                <Text style={styles.chatRoomName}>{chatRoom.name}</Text>
             </View>
         </View>
     );

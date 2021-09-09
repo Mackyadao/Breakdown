@@ -3,16 +3,18 @@ import {View, Text, StyleSheet} from 'react-native';
 
 import colors from '../../constants/colors';
 
-const ChatRoomCommentBaloon = () => {
+const ChatRoomCommentBaloon = props => {
+    const {comment} = props;
+
     return (
         <View style={styles.container}>
             <View style={styles.header}>
                 <Text style={[styles.commentAuthor, styles.boldText]}>
-                    @mystyle01
+                    {`@${comment.author.username}`}
                 </Text>
-                <Text style={styles.commentDate}>2h</Text>
+                <Text style={styles.commentDate}>{comment.date}</Text>
             </View>
-            <Text style={styles.commentContent}>Test test test test test</Text>
+            <Text style={styles.commentContent}>{comment.content}</Text>
         </View>
     );
 };

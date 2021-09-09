@@ -4,25 +4,21 @@ import ChatRoomCommentBaloon from './ChatRoomCommentBaloon';
 import CardView from 'react-native-cardview';
 
 import colors from '../../constants/colors';
+import ChatRoomCommentReplies from './ChatRoomCommentReplies';
+import CommentItemUserAvatar from './CommentItemUserAvatar';
 
-const ChatRoomCommentItem = () => {
+const ChatRoomCommentItem = props => {
+    const {comment} = props;
     const cardElevation = 4;
     const cardMaxElevation = 2;
     const cornerRadius = 60;
 
     return (
         <View style={styles.container}>
-            <View style={styles.userAvatarContainer}>
-                <Pressable>
-                    <Image
-                        style={styles.userAvatar}
-                        source={require('../../assets/images/live-comment-user-avatar-1-3x.png')}
-                    />
-                </Pressable>
-            </View>
+            <CommentItemUserAvatar source={comment.author.userAvatar} />
 
             <View style={styles.commentContainer}>
-                <ChatRoomCommentBaloon />
+                <ChatRoomCommentBaloon comment={comment} />
 
                 <View style={styles.chatRoomCommentActionsContainer}>
                     <View style={styles.chatRoomCommentActionsLeft}>
@@ -39,10 +35,12 @@ const ChatRoomCommentItem = () => {
                                 style={styles.reactionsCountIcon}
                                 source={require('../../assets/icons/reaction-insightful-3x.png')}
                             />
+
                             <Image
                                 style={styles.reactionsCountIcon}
                                 source={require('../../assets/icons/reaction-like-3x.png')}
                             />
+
                             <Image
                                 style={[
                                     styles.reactionsCountIcon,
@@ -50,15 +48,19 @@ const ChatRoomCommentItem = () => {
                                 ]}
                                 source={require('../../assets/icons/reaction-love-3x.png')}
                             />
+
                             <Text style={styles.reactionsTotalCount}>16</Text>
                         </CardView>
                     </View>
+
                     <View style={styles.chatRoomCommentActionsRight}>
                         <Pressable>
                             <Text style={styles.actionText}>Reply</Text>
                         </Pressable>
                     </View>
                 </View>
+
+                <ChatRoomCommentReplies commentReplies={comment.replies} />
             </View>
         </View>
     );
@@ -69,14 +71,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         padding: 5,
         width: '100%',
-    },
-    userAvatarContainer: {
-        borderColor: 'orange',
-    },
-    userAvatar: {
-        width: 40,
-        height: 40,
-        resizeMode: 'contain',
     },
     commentContainer: {
         flex: 1,
