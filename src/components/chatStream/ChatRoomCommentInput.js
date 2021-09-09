@@ -1,17 +1,19 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, Image, Pressable, StyleSheet} from 'react-native';
 
 import colors from '../../constants/colors';
+import {ChatRoomContext} from '../../context/types';
 import FormTextInput from '../forms/FormTextInput';
 
-const ChatRoomCommentInput = props => {
-    const {newComment, handleChangeText, handleSubmit} = props;
+const ChatRoomCommentInput = (props, ref) => {
+    const {handleChangeText, handleSubmit} = props;
+    const {newComment} = useContext(ChatRoomContext);
 
     return (
         <View style={styles.newCommentSection}>
             <View style={styles.newCommentInputContainer}>
                 <FormTextInput
-                    // ref={newCommentInput}
+                    ref={ref}
                     name="content"
                     style={styles.newCommentInput}
                     placeholder="Share your thoughts..."
@@ -63,4 +65,4 @@ const styles = StyleSheet.create({
     },
 });
 
-export default ChatRoomCommentInput;
+export default React.forwardRef(ChatRoomCommentInput);

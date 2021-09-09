@@ -1,9 +1,10 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {View, Text, Image, Pressable, StyleSheet} from 'react-native';
 import ChatRoomCommentBaloon from './ChatRoomCommentBaloon';
 import CardView from 'react-native-cardview';
 
 import colors from '../../constants/colors';
+import {ChatRoomContext} from '../../context/types';
 import ChatRoomCommentReplies from './ChatRoomCommentReplies';
 import CommentItemUserAvatar from './CommentItemUserAvatar';
 
@@ -12,6 +13,8 @@ const ChatRoomCommentItem = props => {
     const cardElevation = 4;
     const cardMaxElevation = 2;
     const cornerRadius = 60;
+
+    const {handleReplyPress} = useContext(ChatRoomContext);
 
     return (
         <View style={styles.container}>
@@ -54,7 +57,10 @@ const ChatRoomCommentItem = props => {
                     </View>
 
                     <View style={styles.chatRoomCommentActionsRight}>
-                        <Pressable>
+                        <Pressable
+                            onPress={() => {
+                                handleReplyPress(comment.id);
+                            }}>
                             <Text style={styles.actionText}>Reply</Text>
                         </Pressable>
                     </View>
@@ -89,6 +95,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
     },
     actionText: {
+        paddingVertical: 1,
         fontSize: 16,
         fontWeight: 'bold',
         color: colors.neutralLighten2,
@@ -97,7 +104,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         alignItems: 'center',
         marginLeft: 10,
-        borderWidth: 1,
         borderRadius: 60,
         paddingHorizontal: 3,
     },
