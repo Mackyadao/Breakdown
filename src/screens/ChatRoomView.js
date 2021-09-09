@@ -33,6 +33,9 @@ const ChatRoomView = props => {
             content:
                 'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ac ante ante. Cras mollis felis et dui venenatis rhoncus.',
             date: '2h',
+            insightfulReactCount: 4,
+            likeReactCount: 4,
+            loveReactCount: 8,
             replies: [
                 {
                     id: 1,
@@ -55,6 +58,9 @@ const ChatRoomView = props => {
             content:
                 'Ut enim arcu, malesuada quis venenatis eu, hendrerit ac lectus. Vivamus lobortis blandit ante, eget tristique orci maximus id.',
             date: '2h',
+            insightfulReactCount: 0,
+            likeReactCount: 12,
+            loveReactCount: 8,
             replies: [
                 {
                     id: 1,

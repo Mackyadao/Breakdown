@@ -16,6 +16,69 @@ const ChatRoomCommentItem = props => {
 
     const {handleReplyPress} = useContext(ChatRoomContext);
 
+    const renderInsightfulReactIcon = () => {
+        if (comment.insightfulReactCount) {
+            return (
+                <Image
+                    style={styles.reactionsCountIcon}
+                    source={require('../../assets/icons/reaction-insightful-3x.png')}
+                />
+            );
+        }
+    };
+
+    const renderLikeReactIcon = () => {
+        if (comment.likeReactCount) {
+            return (
+                <Image
+                    style={styles.reactionsCountIcon}
+                    source={require('../../assets/icons/reaction-like-3x.png')}
+                />
+            );
+        }
+    };
+
+    const renderLoveReactIcon = () => {
+        if (comment.loveReactCount) {
+            return (
+                <Image
+                    style={[
+                        styles.reactionsCountIcon,
+                        {width: 16, height: 13.26},
+                    ]}
+                    source={require('../../assets/icons/reaction-love-3x.png')}
+                />
+            );
+        }
+    };
+
+    const renderReactionsCount = () => {
+        if (
+            comment.insightfulReactCount ||
+            comment.likeReactCount ||
+            comment.likeReactCount
+        ) {
+            return (
+                <CardView
+                    style={styles.reactionsCountContainer}
+                    cardElevation={cardElevation}
+                    cardMaxElevation={cardMaxElevation}
+                    cornerRadius={cornerRadius}>
+                    {renderInsightfulReactIcon()}
+                    {renderLikeReactIcon()}
+                    {renderLoveReactIcon()}
+                    <Text style={styles.reactionsTotalCount}>
+                        {`${
+                            comment.insightfulReactCount +
+                            comment.likeReactCount +
+                            comment.loveReactCount
+                        }`}
+                    </Text>
+                </CardView>
+            );
+        }
+    };
+
     return (
         <View style={styles.container}>
             <CommentItemUserAvatar source={comment.author.userAvatar} />
@@ -29,31 +92,7 @@ const ChatRoomCommentItem = props => {
                             <Text style={styles.actionText}>React</Text>
                         </Pressable>
 
-                        <CardView
-                            style={styles.reactionsCountContainer}
-                            cardElevation={cardElevation}
-                            cardMaxElevation={cardMaxElevation}
-                            cornerRadius={cornerRadius}>
-                            <Image
-                                style={styles.reactionsCountIcon}
-                                source={require('../../assets/icons/reaction-insightful-3x.png')}
-                            />
-
-                            <Image
-                                style={styles.reactionsCountIcon}
-                                source={require('../../assets/icons/reaction-like-3x.png')}
-                            />
-
-                            <Image
-                                style={[
-                                    styles.reactionsCountIcon,
-                                    {width: 16, height: 13.26},
-                                ]}
-                                source={require('../../assets/icons/reaction-love-3x.png')}
-                            />
-
-                            <Text style={styles.reactionsTotalCount}>16</Text>
-                        </CardView>
+                        {renderReactionsCount()}
                     </View>
 
                     <View style={styles.chatRoomCommentActionsRight}>
@@ -108,6 +147,7 @@ const styles = StyleSheet.create({
         paddingHorizontal: 3,
     },
     reactionsCountIcon: {
+        marginRight: 2,
         width: 16,
         height: 16,
         resizeMode: 'contain',
