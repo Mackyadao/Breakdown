@@ -20,11 +20,19 @@ export default class RadioButton extends Component {
     };
 
     renderOptionItemRadioCirle = optionItem => {
+        const {radioCircleStyle} = this.props;
         const {value} = this.state;
 
         return (
             <TouchableOpacity
-                style={styles.radioCircle}
+                /**
+                 * Note: styles.radioCircle (its default style)
+                 * should always be the last style in the array
+                 * to avoid the overrides from radioCircleStyle
+                 * prop that may break the default style of the
+                 * radio circle
+                 */
+                style={[radioCircleStyle, styles.radioCircle]}
                 onPress={() => {
                     this.selectOption(optionItem);
                 }}>
@@ -34,18 +42,25 @@ export default class RadioButton extends Component {
     };
 
     renderOptionItemValue = (optionItem, onPress) => {
-        if (optionItem.text) {
+        const {optionItemValueContainerStyle} = this.props;
+
+        if (optionItem.value) {
             return (
                 <Pressable onPress={onPress}>
-                    <Text style={styles.optionItem}>{optionItem.text}</Text>
+                    <Text
+                        style={[
+                            styles.optionItemValueContainer,
+                            optionItemValueContainerStyle,
+                        ]}>
+                        {optionItem.value}
+                    </Text>
                 </Pressable>
             );
-        } else if (optionItem.render) {
-            return (
-                <Pressable onPress={onPress} style={styles.optionItem}>
-                    {optionItem.render()}
-                </Pressable>
-            );
+        } else if (optionItem.renderValue) {
+            return optionItem.renderValue({
+                onPress,
+                style: styles.optionItemValueContainer,
+            });
         }
     };
 
@@ -76,7 +91,7 @@ export default class RadioButton extends Component {
     };
 
     render() {
-        const {optionItemStyle, options} = this.props;
+        const {optionItemContainerStyle, options} = this.props;
 
         return (
             <>
@@ -86,7 +101,7 @@ export default class RadioButton extends Component {
                             key={optionItem.key}
                             style={[
                                 styles.optionItemContainer,
-                                optionItemStyle,
+                                optionItemContainerStyle,
                             ]}>
                             {this.renderOptionItem(optionItem)}
                         </View>
@@ -104,7 +119,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-start',
     },
-    optionItem: {
+    optionItemValueContainer: {
         flex: 1,
         marginLeft: 20,
         fontSize: 20,
@@ -117,6 +132,18 @@ const styles = StyleSheet.create({
         borderRadius: 100,
         borderWidth: 2,
         borderColor: colors.dark,
+        /**
+         * set all kinds of padding values
+         * (padding, paddingTop, paddingLeft, and so on)
+         * to prevent the overrides from radioCircleStyle
+         * prop of this component that may break the default
+         * style of the radio circle
+         */
+        padding: 0,
+        paddingTop: 0,
+        paddingLeft: 0,
+        paddingRight: 0,
+        paddingBottom: 0,
         alignItems: 'center',
         justifyContent: 'center',
     },
