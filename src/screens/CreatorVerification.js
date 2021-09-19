@@ -3,6 +3,7 @@ import {
     Text,
     View,
     Image,
+    TouchableOpacity,
     Pressable,
     ScrollView,
     Modal,
@@ -15,11 +16,16 @@ import FormTextInput from '../components/forms/FormTextInput';
 import RadioButton from '../components/buttons/RadioButton';
 import DefaultPillFlatButton from '../components/buttons/DefaultPillFlatButton';
 import ArtCategoryModal from '../modals/ArtCategoryModal';
+import ProofOfWorkInfoModal from '../modals/ProofOfWorkInfoModal';
 
 const TierOne = props => {
+    const {onPress, toggleProofOfWorkInfoModal} = props;
+
     return (
         <View style={styles.tierOptionItemValueContainer}>
-            <Pressable {...props} style={styles.tierOptionItemValueHeader}>
+            <Pressable
+                onPress={onPress}
+                style={styles.tierOptionItemValueHeader}>
                 <Text style={[styles.contentText, styles.boldText]}>
                     Tier 1
                 </Text>
@@ -34,12 +40,14 @@ const TierOne = props => {
                         <Text style={[styles.contentText]}>
                             Submit proof of work
                         </Text>
-                        <Pressable style={styles.infoIconContainer}>
+                        <TouchableOpacity
+                            onPress={toggleProofOfWorkInfoModal}
+                            style={styles.infoIconContainer}>
                             <Image
                                 source={require('../assets/icons/info-solid-3x.png')}
                                 style={styles.infoIcon}
                             />
-                        </Pressable>
+                        </TouchableOpacity>
                     </View>
 
                     <View style={styles.tierRequirementsListItem}>
@@ -68,9 +76,13 @@ const TierOne = props => {
 };
 
 const TierTwo = props => {
+    const {onPress, toggleProofOfWorkInfoModal} = props;
+
     return (
         <View style={styles.tierOptionItemValueContainer}>
-            <Pressable {...props} style={styles.tierOptionItemValueHeader}>
+            <Pressable
+                onPress={onPress}
+                style={styles.tierOptionItemValueHeader}>
                 <Text style={[styles.contentText, styles.boldText]}>
                     Tier 2
                 </Text>
@@ -85,12 +97,14 @@ const TierTwo = props => {
                         <Text style={[styles.contentText]}>
                             Submit proof of work
                         </Text>
-                        <Pressable style={styles.infoIconContainer}>
+                        <TouchableOpacity
+                            onPress={toggleProofOfWorkInfoModal}
+                            style={styles.infoIconContainer}>
                             <Image
                                 source={require('../assets/icons/info-solid-3x.png')}
                                 style={styles.infoIcon}
                             />
-                        </Pressable>
+                        </TouchableOpacity>
                     </View>
 
                     <View style={styles.tierRequirementsListItem}>
@@ -132,9 +146,15 @@ const CreatorVerification = props => {
     const [formValues, setFormValues] = useState(formFieldsInitState);
     const [artCategoryModalVisible, setArtCategoryModalVisible] =
         useState(false);
+    const [proofOfWorkInfoModalVisible, setProofOfWorkInfoModalVisible] =
+        useState(false);
 
     const toggleArtCategoryModal = () => {
         setArtCategoryModalVisible(!artCategoryModalVisible);
+    };
+
+    const toggleProofOfWorkInfoModal = () => {
+        setProofOfWorkInfoModalVisible(!proofOfWorkInfoModalVisible);
     };
 
     const handleChangeText = (fieldValue, fieldName) => {
@@ -172,13 +192,25 @@ const CreatorVerification = props => {
                 transparent={true}
                 visible={artCategoryModalVisible}
                 onRequestClose={() => {
-                    setArtCategoryModalVisible(!artCategoryModalVisible);
+                    toggleArtCategoryModal();
                 }}>
                 <ArtCategoryModal
                     name="artCategory"
                     value={formValues.artCategory}
                     onChangeValue={handleChangeSelectedOption}
                     toggleModal={toggleArtCategoryModal}
+                />
+            </Modal>
+
+            <Modal
+                animationType="fade"
+                transparent={true}
+                visible={proofOfWorkInfoModalVisible}
+                onRequestClose={() => {
+                    toggleProofOfWorkInfoModal();
+                }}>
+                <ProofOfWorkInfoModal
+                    onOutsidePress={() => toggleProofOfWorkInfoModal()}
                 />
             </Modal>
 
@@ -313,6 +345,7 @@ const CreatorVerification = props => {
                             optionItemContainerStyle={
                                 styles.tierOptionItemContainer
                             }
+                            labelProps={{toggleProofOfWorkInfoModal}}
                             radioCircleStyle={{marginTop: 2}}
                         />
                     </View>
