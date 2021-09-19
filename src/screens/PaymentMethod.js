@@ -1,91 +1,93 @@
 import React from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image, Pressable, StyleSheet} from 'react-native';
 import DefaultPillFlatButton from '../components/buttons/DefaultPillFlatButton';
 
 import RadioButton from '../components/buttons/RadioButton';
 import colors from '../constants/colors';
 
-const Paypal = () => {
+const Paypal = props => {
     return (
-        <View>
+        <Pressable {...props} style={styles.optionItemValueContainer}>
             <Image
                 source={require('../images/PaymentMethodPaypal.png')}
                 style={{height: 32, resizeMode: 'contain'}}
             />
-        </View>
+        </Pressable>
     );
 };
 
-const Cards = () => {
+const Cards = props => {
     const height = 32;
     const marginRight = 15;
     const resizeMode = 'contain';
 
     return (
-        <View
-            style={{
-                flexDirection: 'row',
-                justifyContent: 'flex-start',
-                alignItems: 'center',
-            }}>
-            <Image
-                source={require('../images/PaymentMethodCardVisa.png')}
-                style={{height, marginRight, resizeMode}}
-            />
-            <Image
-                source={require('../images/PaymentMethodCardMastercard.png')}
-                style={{height, marginRight, resizeMode}}
-            />
-            <Image
-                source={require('../images/PaymentMethodCardAmericanExpress.png')}
-                style={{height, marginRight: 5, resizeMode}}
-            />
-            <Image
-                source={require('../images/PaymentMethodCardDiscover.png')}
-                style={{height, marginRight, resizeMode: 'cover'}}
-            />
-        </View>
+        <Pressable {...props} style={styles.optionItemValueContainer}>
+            <View
+                style={{
+                    flexDirection: 'row',
+                    justifyContent: 'flex-start',
+                    alignItems: 'center',
+                }}>
+                <Image
+                    source={require('../images/PaymentMethodCardVisa.png')}
+                    style={{height, marginRight, resizeMode}}
+                />
+                <Image
+                    source={require('../images/PaymentMethodCardMastercard.png')}
+                    style={{height, marginRight, resizeMode}}
+                />
+                <Image
+                    source={require('../images/PaymentMethodCardAmericanExpress.png')}
+                    style={{height, marginRight: 5, resizeMode}}
+                />
+                <Image
+                    source={require('../images/PaymentMethodCardDiscover.png')}
+                    style={{height, marginRight, resizeMode: 'cover'}}
+                />
+            </View>
+        </Pressable>
     );
 };
 
-const GPay = () => {
+const GPay = props => {
     return (
-        <View>
+        <Pressable {...props} style={styles.optionItemValueContainer}>
             <Image
                 source={require('../images/PaymentMethodGPay.png')}
                 style={{height: 32, resizeMode: 'contain'}}
             />
-        </View>
+        </Pressable>
     );
 };
 
-const ApplePay = () => {
+const ApplePay = props => {
     return (
-        <View>
+        <Pressable {...props} style={styles.optionItemValueContainer}>
             <Image
                 source={require('../images/PaymentMethodApplePay.png')}
                 style={{height: 32, resizeMode: 'contain'}}
             />
-        </View>
+        </Pressable>
     );
 };
 
 const paymentTypeOptions = [
     {
-        key: 'paypal',
-        render: Paypal,
+        value: 'paypal',
+        renderLabel: Paypal,
     },
     {
-        key: 'card',
-        render: Cards,
+        value: 'card',
+        renderLabel: Cards,
     },
     {
-        key: 'g_pay',
-        render: GPay,
+        value: 'g_pay',
+        renderLabel: GPay,
     },
     {
-        key: 'apple_pay',
-        render: ApplePay,
+        value: 'apple_pay',
+        renderLabel: ApplePay,
     },
 ];
 
@@ -103,10 +105,7 @@ const PaymentMethod = props => {
                 </Text>
 
                 <View style={styles.optionsContainer}>
-                    <RadioButton
-                        options={paymentTypeOptions}
-                        defaultOption={'card'}
-                    />
+                    <RadioButton options={paymentTypeOptions} value={'card'} />
                 </View>
 
                 <View style={styles.actionsContainer}>
@@ -146,6 +145,10 @@ const styles = StyleSheet.create({
         paddingTop: 30,
         paddingHorizontal: 30,
         paddingBottom: 10,
+    },
+    optionItemValueContainer: {
+        flex: 1,
+        marginLeft: 20,
     },
     actionsContainer: {
         flexDirection: 'row',

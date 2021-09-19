@@ -4,8 +4,8 @@ import {
     View,
     Image,
     StyleSheet,
+    ScrollView,
     KeyboardAvoidingView,
-    Platform,
 } from 'react-native';
 
 import colors from '../constants/colors';
@@ -16,93 +16,95 @@ const Register = props => {
     const {navigation} = props;
 
     return (
-        <View style={styles.container}>
-            <Image
-                source={require('../assets/logo/iconicMark/iconicMark-colored-3x.png')}
-                style={{
-                    width: 42,
-                    height: 42,
-                    marginTop: 25,
-                    marginLeft: 25,
-                    resizeMode: 'contain',
-                }}
-            />
+        <KeyboardAvoidingView style={styles.container}>
+            <ScrollView>
+                <Image
+                    source={require('../assets/logo/iconicMark/iconicMark-colored-3x.png')}
+                    style={{
+                        width: 42,
+                        height: 42,
+                        marginTop: 25,
+                        marginLeft: 25,
+                        resizeMode: 'contain',
+                    }}
+                />
 
-            <View style={styles.uploadPicture}>
-                <View style={styles.uploadPictureIcon}>
-                    <Image
-                        source={require('../images/Vector.png')}
-                        style={styles.userCircledIcon}
-                    />
+                <View style={styles.uploadPicture}>
+                    <View style={styles.uploadPictureIcon}>
+                        <Image
+                            source={require('../images/Vector.png')}
+                            style={styles.userCircledIcon}
+                        />
 
-                    <Image
-                        source={require('../images/Ellipse69.png')}
-                        style={styles.plusIconContainer}
-                    />
-                    <Image
-                        source={require('../images/+.png')}
-                        style={styles.plusIcon}
-                    />
+                        <Image
+                            source={require('../images/Ellipse69.png')}
+                            style={styles.plusIconContainer}
+                        />
+                        <Image
+                            source={require('../images/+.png')}
+                            style={styles.plusIcon}
+                        />
+                    </View>
+
+                    <Text style={styles.uploadPictureText}>
+                        Add your picture
+                    </Text>
                 </View>
 
-                <Text style={styles.uploadPictureText}>Add your picture</Text>
-            </View>
+                <View style={styles.registerForm}>
+                    <Text style={styles.contentText}>
+                        Tell us a little more about yourself,{'\n'}
+                        so we can provide you with{'\n'}
+                        customized content.
+                    </Text>
 
-            <KeyboardAvoidingView
-                style={styles.registerForm}
-                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}>
-                <Text style={styles.contentText}>
-                    Tell us a little more about yourself,{'\n'}
-                    so we can provide you with{'\n'}
-                    customized content.
-                </Text>
+                    <FormPillWithIconTextInput
+                        containerStyle={styles.textInput}
+                        name="name"
+                        placeholder="Name"
+                        iconSource={require('../assets/icons/user-solid-3x.png')}
+                    />
 
-                <FormPillWithIconTextInput
-                    containerStyle={styles.textInput}
-                    name="name"
-                    placeholder="Name"
-                    iconSource={require('../assets/icons/user-solid-3x.png')}
-                />
+                    <FormPillWithIconTextInput
+                        containerStyle={styles.textInput}
+                        name="username"
+                        placeholder="Username"
+                        autoCapitalize="none"
+                        iconSource={require('../assets/icons/user-solid-3x.png')}
+                    />
 
-                <FormPillWithIconTextInput
-                    containerStyle={styles.textInput}
-                    name="username"
-                    placeholder="Username"
-                    autoCapitalize="none"
-                    iconSource={require('../assets/icons/user-solid-3x.png')}
-                />
+                    <FormPillWithIconTextInput
+                        containerStyle={styles.textInput}
+                        name="birthday"
+                        placeholder="Birthday"
+                        autoCapitalize="none"
+                        iconSource={require('../assets/icons/calendar-solid-3x.png')}
+                    />
 
-                <FormPillWithIconTextInput
-                    containerStyle={styles.textInput}
-                    name="birthday"
-                    placeholder="Birthday"
-                    autoCapitalize="none"
-                    iconSource={require('../assets/icons/calendar-solid-3x.png')}
-                />
+                    <FormPillWithIconTextInput
+                        containerStyle={styles.textInput}
+                        name="mobileNumber"
+                        placeholder="Mobile number"
+                        keyboardType="number-pad"
+                        iconSource={require('../assets/icons/mobile-phone-solid-3x.png')}
+                    />
 
-                <FormPillWithIconTextInput
-                    containerStyle={styles.textInput}
-                    name="mobileNumber"
-                    placeholder="Mobile number"
-                    keyboardType="number-pad"
-                    iconSource={require('../assets/icons/mobile-phone-solid-3x.png')}
-                />
+                    <FormPillWithIconTextInput
+                        containerStyle={styles.textInput}
+                        name="email"
+                        placeholder="Email"
+                        keyboardType="email-address"
+                        iconSource={require('../assets/icons/email-solid-3x.png')}
+                    />
 
-                <FormPillWithIconTextInput
-                    containerStyle={styles.textInput}
-                    name="email"
-                    placeholder="Email"
-                    keyboardType="email-address"
-                    iconSource={require('../assets/icons/email-solid-3x.png')}
-                />
-
-                <PrimaryPillFlatButton
-                    title="Done"
-                    onPress={() => navigation.navigate('ChooseMedium')}
-                    style={styles.button}
-                />
-            </KeyboardAvoidingView>
-        </View>
+                    <PrimaryPillFlatButton
+                        title="Done"
+                        onPress={() => navigation.navigate('ChooseMedium')}
+                        style={styles.button}
+                    />
+                </View>
+            </ScrollView>
+        </KeyboardAvoidingView>
     );
 };
 
