@@ -514,7 +514,7 @@ const styles = StyleSheet.create({
         paddingRight: 80,
     },
     tierOptionItemValueDescContainer: {
-        marginLeft: -14,
+        marginLeft: -13,
     },
     tierRequirementsList: {},
     tierRequirementsListItem: {
