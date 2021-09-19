@@ -31,24 +31,34 @@ const BooksCategory = props => {
 
 const categoryOptions = [
     {
-        key: 'movie',
-        renderValue: MovieCategory,
+        value: 'Movie',
+        renderLabel: MovieCategory,
     },
     {
-        key: 'tv',
-        renderValue: TVCategory,
+        value: 'TV',
+        renderLabel: TVCategory,
     },
     {
-        key: 'books',
-        renderValue: BooksCategory,
+        value: 'Books',
+        renderLabel: BooksCategory,
     },
 ];
 
-const ArtCategoryModal = () => {
+const ArtCategoryModal = props => {
+    const {name, value, toggleModal, onChangeValue, onOutsidePress} = props;
+
+    const handleChangeValue = selectedOption => {
+        onChangeValue && onChangeValue(selectedOption);
+        toggleModal && toggleModal();
+    };
+
     return (
-        <ModalBackdrop>
+        <ModalBackdrop onPress={onOutsidePress}>
             <View style={styles.modal}>
                 <RadioButton
+                    name={name}
+                    value={value}
+                    onChangeValue={handleChangeValue}
                     optionItemContainerStyle={{marginBottom: 0}}
                     orientation="right"
                     options={categoryOptions}
@@ -70,7 +80,7 @@ const styles = StyleSheet.create({
     },
     categoryListItem: {
         flex: 1,
-        marginVertical: 5,
+        paddingVertical: 5,
     },
     contentText: {
         fontSize: 20,

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, {useState} from 'react';
 import {
     View,
     TouchableOpacity,
@@ -6,23 +6,31 @@ import {
     Pressable,
     StyleSheet,
 } from 'react-native';
+
 import colors from '../../constants/colors';
 
-export default class RadioButton extends Component {
-    state = {
-        value: this.props.defaultOption || '',
+const RadioButton = props => {
+    const {
+        options,
+        name,
+        value,
+        onChangeValue,
+        orientation,
+        radioCircleStyle,
+        optionItemContainerStyle,
+        optionItemLabelContainerStyle,
+        labelProps,
+    } = props;
+
+    const [selectedValue, setSelectedValue] = useState(value || '');
+
+    const selectOption = optionItem => {
+        setSelectedValue(optionItem.value);
+
+        onChangeValue && onChangeValue({name, value: optionItem.value});
     };
 
-    selectOption = optionItem => {
-        this.setState({
-            value: optionItem.key,
-        });
-    };
-
-    renderOptionItemRadioCirle = optionItem => {
-        const {radioCircleStyle} = this.props;
-        const {value} = this.state;
-
+    const renderOptionItemRadioCirle = optionItem => {
         return (
             <TouchableOpacity
                 /**
@@ -34,83 +42,78 @@ export default class RadioButton extends Component {
                  */
                 style={[radioCircleStyle, styles.radioCircle]}
                 onPress={() => {
-                    this.selectOption(optionItem);
+                    selectOption(optionItem);
                 }}>
-                {value === optionItem.key && <View style={styles.selectedRb} />}
+                {selectedValue === optionItem.value && (
+                    <View style={styles.selectedRb} />
+                )}
             </TouchableOpacity>
         );
     };
 
-    renderOptionItemValue = (optionItem, onPress) => {
-        const {optionItemValueContainerStyle} = this.props;
-
-        if (optionItem.value) {
+    const renderOptionItemLabel = (optionItem, onPress) => {
+        if (optionItem.label) {
             return (
-                <Pressable onPress={onPress}>
+                <Pressable onPress={onPress} {...labelProps}>
                     <Text
                         style={[
-                            styles.optionItemValueContainer,
-                            optionItemValueContainerStyle,
+                            styles.optionItemLabelContainer,
+                            optionItemLabelContainerStyle,
                         ]}>
-                        {optionItem.value}
+                        {optionItem.label}
                     </Text>
                 </Pressable>
             );
-        } else if (optionItem.renderValue) {
-            return optionItem.renderValue({
+        } else if (optionItem.renderLabel) {
+            return optionItem.renderLabel({
                 onPress,
-                style: styles.optionItemValueContainer,
+                style: styles.optionItemLabelContainer,
+                ...labelProps,
             });
         }
     };
 
-    renderOptionItem = optionItem => {
-        const {orientation} = this.props;
-
+    const renderOptionItem = optionItem => {
         if (orientation === 'right') {
             return (
                 <>
-                    {this.renderOptionItemValue(optionItem, () =>
-                        this.selectOption(optionItem),
+                    {renderOptionItemLabel(optionItem, () =>
+                        selectOption(optionItem),
                     )}
 
-                    {this.renderOptionItemRadioCirle(optionItem)}
+                    {renderOptionItemRadioCirle(optionItem)}
                 </>
             );
         } else {
             return (
                 <>
-                    {this.renderOptionItemRadioCirle(optionItem)}
+                    {renderOptionItemRadioCirle(optionItem)}
 
-                    {this.renderOptionItemValue(optionItem, () =>
-                        this.selectOption(optionItem),
+                    {renderOptionItemLabel(optionItem, () =>
+                        selectOption(optionItem),
                     )}
                 </>
             );
         }
     };
 
-    render() {
-        const {optionItemContainerStyle, options} = this.props;
-
-        return (
-            <>
-                {options.map(optionItem => {
-                    return (
-                        <View
-                            key={optionItem.key}
-                            style={[
-                                styles.optionItemContainer,
-                                optionItemContainerStyle,
-                            ]}>
-                            {this.renderOptionItem(optionItem)}
-                        </View>
-                    );
-                })}
-            </>
-        );
-    }
-}
+    return (
+        <>
+            {options.map(optionItem => {
+                return (
+                    <View
+                        key={optionItem.value}
+                        style={[
+                            styles.optionItemContainer,
+                            optionItemContainerStyle,
+                        ]}>
+                        {renderOptionItem(optionItem)}
+                    </View>
+                );
+            })}
+        </>
+    );
+};
 
 const styles = StyleSheet.create({
     optionItemContainer: {
@@ -119,7 +122,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-start',
     },
-    optionItemValueContainer: {
+    optionItemLabelContainer: {
         flex: 1,
         marginLeft: 20,
         fontSize: 20,
@@ -160,3 +163,5 @@ const styles = StyleSheet.create({
         backgroundColor: '#F3FBFE',
     },
 });
+
+export default RadioButton;

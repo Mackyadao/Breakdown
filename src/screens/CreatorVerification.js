@@ -3,7 +3,6 @@ import {
     Text,
     View,
     Image,
-    TextInput,
     Pressable,
     ScrollView,
     Modal,
@@ -11,6 +10,8 @@ import {
 } from 'react-native';
 
 import colors from '../constants/colors';
+import {hasEmptyField} from '../utils/formHelper';
+import FormTextInput from '../components/forms/FormTextInput';
 import RadioButton from '../components/buttons/RadioButton';
 import DefaultPillFlatButton from '../components/buttons/DefaultPillFlatButton';
 import ArtCategoryModal from '../modals/ArtCategoryModal';
@@ -109,22 +110,59 @@ const TierTwo = props => {
 
 const tierOptions = [
     {
-        key: 'Tier 1',
-        renderValue: TierOne,
+        value: 'tier-1',
+        renderLabel: TierOne,
     },
     {
-        key: 'Tier 2',
-        renderValue: TierTwo,
+        value: 'tier-2',
+        renderLabel: TierTwo,
     },
 ];
 
 const CreatorVerification = props => {
     const {navigation} = props;
+    const formFieldsInitState = {
+        username: '',
+        fullName: '',
+        knownAs: '',
+        artCategory: '',
+        tier: 'tier-1',
+    };
+
+    const [formValues, setFormValues] = useState(formFieldsInitState);
     const [artCategoryModalVisible, setArtCategoryModalVisible] =
         useState(false);
 
     const toggleArtCategoryModal = () => {
         setArtCategoryModalVisible(!artCategoryModalVisible);
+    };
+
+    const handleChangeText = (fieldValue, fieldName) => {
+        setFormValues(values => {
+            return {...values, [fieldName]: fieldValue};
+        });
+    };
+
+    const handleChangeSelectedOption = selectedOption => {
+        setFormValues(values => {
+            return {...values, [selectedOption.name]: selectedOption.value};
+        });
+    };
+
+    const handleSubmit = () => {
+        if (!hasEmptyField(formValues)) {
+            /**
+             * TODO: Submit the form to the API, then navigate to the Home
+             * screen if there's no error.
+             */
+        } else {
+            /**
+             * TODO: Display error message on empty required field
+             */
+        }
+
+        // temporarily navigate to Home screen for testing
+        navigation.navigate('Home');
     };
 
     return (
@@ -136,7 +174,12 @@ const CreatorVerification = props => {
                 onRequestClose={() => {
                     setArtCategoryModalVisible(!artCategoryModalVisible);
                 }}>
-                <ArtCategoryModal />
+                <ArtCategoryModal
+                    name="artCategory"
+                    value={formValues.artCategory}
+                    onChangeValue={handleChangeSelectedOption}
+                    toggleModal={toggleArtCategoryModal}
+                />
             </Modal>
 
             <ScrollView style={styles.contentContainer}>
@@ -189,27 +232,37 @@ const CreatorVerification = props => {
                     </Text>
                 </View>
 
-                <TextInput
+                <FormTextInput
                     style={[
                         styles.textInput,
                         {
                             borderTopWidth: 2,
                         },
                     ]}
+                    name="username"
+                    value={formValues.username}
+                    onChangeText={handleChangeText}
                     placeholder="Username"
                     placeholderTextColor={colors.dark}
                     keyboardType="default"
+                    autoCapitalize="none"
                 />
 
-                <TextInput
+                <FormTextInput
                     style={styles.textInput}
+                    name="fullName"
+                    value={formValues.fullName}
+                    onChangeText={handleChangeText}
                     placeholder="Fullname"
                     placeholderTextColor={colors.dark}
                     keyboardType="default"
                 />
 
-                <TextInput
+                <FormTextInput
                     style={[styles.textInput]}
+                    name="knownAs"
+                    value={formValues.knownAs}
+                    onChangeText={handleChangeText}
                     placeholder="Known As"
                     placeholderTextColor={colors.dark}
                     keyboardType="default"
@@ -223,7 +276,9 @@ const CreatorVerification = props => {
                         },
                     ]}>
                     <Text style={styles.dropDownToggleText}>
-                        {'Arts & Entertainment Category'}
+                        {formValues.artCategory
+                            ? formValues.artCategory
+                            : 'Arts & Entertainment Category'}
                     </Text>
 
                     <Pressable onPress={() => toggleArtCategoryModal()}>
@@ -251,6 +306,9 @@ const CreatorVerification = props => {
                         </Text>
 
                         <RadioButton
+                            name="tier"
+                            value={formValues.tier}
+                            onChangeValue={handleChangeSelectedOption}
                             options={tierOptions}
                             optionItemContainerStyle={
                                 styles.tierOptionItemContainer
@@ -307,7 +365,7 @@ const CreatorVerification = props => {
                     }}>
                     <DefaultPillFlatButton
                         title="Send"
-                        onPress={() => navigation.navigate('Home')}
+                        onPress={handleSubmit}
                     />
                 </View>
             </ScrollView>

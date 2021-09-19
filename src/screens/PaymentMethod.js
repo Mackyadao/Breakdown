@@ -74,20 +74,20 @@ const ApplePay = props => {
 
 const paymentTypeOptions = [
     {
-        key: 'paypal',
-        renderValue: Paypal,
+        value: 'paypal',
+        renderLabel: Paypal,
     },
     {
-        key: 'card',
-        renderValue: Cards,
+        value: 'card',
+        renderLabel: Cards,
     },
     {
-        key: 'g_pay',
-        renderValue: GPay,
+        value: 'g_pay',
+        renderLabel: GPay,
     },
     {
-        key: 'apple_pay',
-        renderValue: ApplePay,
+        value: 'apple_pay',
+        renderLabel: ApplePay,
     },
 ];
 
@@ -105,10 +105,7 @@ const PaymentMethod = props => {
                 </Text>
 
                 <View style={styles.optionsContainer}>
-                    <RadioButton
-                        options={paymentTypeOptions}
-                        defaultOption={'card'}
-                    />
+                    <RadioButton options={paymentTypeOptions} value={'card'} />
                 </View>
 
                 <View style={styles.actionsContainer}>
