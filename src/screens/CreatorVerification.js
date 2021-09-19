@@ -6,12 +6,14 @@ import {
     TextInput,
     Pressable,
     ScrollView,
+    Modal,
     StyleSheet,
 } from 'react-native';
 
 import colors from '../constants/colors';
 import RadioButton from '../components/buttons/RadioButton';
 import DefaultPillFlatButton from '../components/buttons/DefaultPillFlatButton';
+import ArtCategoryModal from '../modals/ArtCategoryModal';
 
 const TierOne = props => {
     return (
@@ -118,9 +120,25 @@ const tierOptions = [
 
 const CreatorVerification = props => {
     const {navigation} = props;
+    const [artCategoryModalVisible, setArtCategoryModalVisible] =
+        useState(false);
+
+    const toggleArtCategoryModal = () => {
+        setArtCategoryModalVisible(!artCategoryModalVisible);
+    };
 
     return (
         <View style={styles.screen}>
+            <Modal
+                animationType="none"
+                transparent={true}
+                visible={artCategoryModalVisible}
+                onRequestClose={() => {
+                    setArtCategoryModalVisible(!artCategoryModalVisible);
+                }}>
+                <ArtCategoryModal />
+            </Modal>
+
             <ScrollView style={styles.contentContainer}>
                 <View>
                     <Image
@@ -208,13 +226,17 @@ const CreatorVerification = props => {
                         {'Arts & Entertainment Category'}
                     </Text>
 
-                    <Text style={[styles.dropDownLabelText, styles.boldText]}>
-                        Please make your selection from the drop down box{'  '}
-                        <Image
-                            style={styles.dropDownLabelArrow}
-                            source={require('../assets/icons/drop-down-arrow-solid-3x.png')}
-                        />
-                    </Text>
+                    <Pressable onPress={() => toggleArtCategoryModal()}>
+                        <Text
+                            style={[styles.dropDownLabelText, styles.boldText]}>
+                            Please make your selection from the drop down box
+                            {'  '}
+                            <Image
+                                style={styles.dropDownLabelArrow}
+                                source={require('../assets/icons/drop-down-arrow-solid-3x.png')}
+                            />
+                        </Text>
+                    </Pressable>
                 </View>
 
                 <View style={styles.tierSelectionSection}>
