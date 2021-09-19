@@ -54,20 +54,34 @@ export default class MakeItOfficial extends React.Component {
                                 fontSize: 16,
                                 alignSelf: 'center',
                                 color: '#000',
-                                textAlign: 'justify',
                                 marginTop: 25,
                             }}>
-                            <Text style={styles.bold}>Tier 1</Text> Verified
+                            <Text style={styles.boldText}>Tier 1</Text> Verified
                             Creators are represented by a red ring around their
                             avatar.{'\n\n'}
-                            <Text style={styles.bold}>Tier 2</Text> Verified
-                            Creators will also be represented by a golden “V“
-                            alongside their username.{'\n\n'}Creators from both
-                            tiers will have the added ability to live stream
-                            video, monetize premium content, and confirm their
-                            likeness for Admirers. Selecting “Okay” presents
-                            steps to verification.
+                            <Text style={styles.boldText}>Tier 2</Text> Verified
+                            Creators will also be represented by a golden “
+                            {
+                                <View
+                                    style={
+                                        styles.verifiedCreatorBadgeContainer
+                                    }>
+                                    <Text
+                                        style={[
+                                            styles.boldText,
+                                            styles.verifiedCreatorBadge,
+                                        ]}>
+                                        V
+                                    </Text>
+                                </View>
+                            }
+                            “ alongside their username.{'\n\n'}Creators from
+                            both tiers will have the added ability to live
+                            stream video, monetize premium content, and confirm
+                            their likeness for Admirers. Selecting “Okay”
+                            presents steps to verification.
                         </Text>
+
                         <View
                             style={{
                                 flexDirection: 'row',
@@ -95,7 +109,20 @@ export default class MakeItOfficial extends React.Component {
 }
 
 const styles = StyleSheet.create({
-    bold: {
+    boldText: {
         fontWeight: 'bold',
+    },
+    verifiedCreatorBadgeContainer: {
+        justifyContent: 'center',
+        alignItems: 'center',
+        width: 18,
+        height: 18,
+        borderRadius: 18 / 2,
+        backgroundColor: colors.light,
+    },
+    verifiedCreatorBadge: {
+        alignSelf: 'center',
+        fontSize: 14,
+        color: colors.secondary,
     },
 });
